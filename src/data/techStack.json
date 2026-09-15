@@ -1,0 +1,65 @@
+[
+  {
+    "category": "Languages",
+    "icon": "code",
+    "tone": "violet",
+    "items": [
+      { "name": "JavaScript", "iconKey": "javascript" },
+      { "name": "TypeScript", "iconKey": "typescript" },
+      { "name": "Python", "iconKey": "python" },
+      { "name": "C++", "iconKey": "cplusplus" },
+      { "name": "C", "iconKey": "c" }
+
+    ]
+  },
+  {
+    "category": "Web Development",
+    "icon": "layout",
+    "tone": "sky",
+    "items": [
+      { "name": "React", "iconKey": "react" },
+      { "name": "Tailwind CSS", "iconKey": "tailwindcss" },
+      { "name": "HTML5", "iconKey": "html5" },
+      { "name": "CSS3", "iconKey": "css3" },
+      { "name": "Vite", "iconKey": "vite" },
+      { "name": "Node.js", "iconKey": "nodejs" }
+    ]
+  },
+  {
+    "category": "Databases & Backend",
+    "icon": "database",
+    "tone": "pink",
+    "items": [
+      { "name": "MongoDB", "iconKey": "mongodb" },
+      { "name": "PostgreSQL", "iconKey": "postgresql" },
+      { "name": "MySQL", "iconKey": "mysql" },
+      { "name": "Express", "iconKey": "express" },
+      { "name": "Firebase", "iconKey": "firebase" }
+    ]
+  },
+  {
+    "category": "AI / Machine Learning",
+    "icon": "cpu",
+    "tone": "amber",
+    "items": [
+      { "name": "TensorFlow", "iconKey": "tensorflow" },
+      { "name": "PyTorch", "iconKey": "pytorch" },
+      { "name": "scikit-learn", "iconKey": "scikitlearn" },
+      { "name": "Pandas", "iconKey": "pandas" },
+      { "name": "Jupyter", "iconKey": "jupyter" }
+    ]
+  },
+  {
+    "category": "Cloud & Development Tools",
+    "icon": "cloud",
+    "tone": "emerald",
+    "items": [
+      { "name": "Docker", "iconKey": "docker" },
+      { "name": "Git", "iconKey": "git" },
+      { "name": "GitHub", "iconKey": "github" },
+      { "name": "Linux", "iconKey": "linux" },
+      { "name": "Cloudflare", "iconKey": "cloudflare" },
+      { "name": "Vercel", "iconKey": "vercel" }
+    ]
+  }
+]

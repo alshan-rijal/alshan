@@ -1,0 +1,68 @@
+[
+  {
+    "id": "KamKhoj",
+    "title": "KamKhoj",
+    "description": "A smart household helper application designed to assist with daily tasks and provide convenient solutions for modern homes.",
+    "image": "/images/projects/kamkhoj.png",
+    "techStack": ["javascript", "firebase", "react", "tailwindcss"],
+    "liveUrl": "https://kamkhoj.vercel.app/",
+    "githubUrl": "https://github.com/alshan-rijal/KamKhoj",
+    "featured": true,
+    "tone": "violet"
+  },
+  {
+    "id": "Portfolio",
+    "title": "Developer Portfolio",
+    "description": "Responsive personal portfolio with animated sections, contact form integration, and category-based project showcase.",
+    "image": "/images/projects/portfoliodemo.png",
+    "techStack": ["react", "tailwindcss", "express", "firebase"],
+    "liveUrl": "https://alshan-rijal.github.io/alshan",
+    "githubUrl": "https://github.com/alshan-rijal/alshan",
+    "featured": false,
+    "tone": "pink"
+  },
+  {
+    "id": "devboard",
+    "title": "DevBoard",
+    "description": "A real-time kanban board with drag-and-drop columns, presence indicators and offline-first caching.",
+    "image": "/images/projects/devboard.svg",
+    "techStack": ["react", "nodejs", "mongodb", "vite"],
+    "liveUrl": "https://alshan-rijal.github.io/devboard",
+    "githubUrl": "https://github.com/alshan-rijal/devboard",
+    "featured": false,
+    "tone": "sky"
+  },
+  {
+    "id": "weatherorb",
+    "title": "WeatherOrb",
+    "description": "A floating weather orb that animates the sky, sun and rain based on live conditions in your city.",
+    "image": "/images/projects/weatherorb.svg",
+    "techStack": ["react", "vite", "css3", "javascript"],
+    "liveUrl": "https://alshan-rijal.github.io/weatherorb",
+    "githubUrl": "https://github.com/alshan-rijal/weatherorb",
+    "featured": false,
+    "tone": "cyan"
+  },
+  {
+    "id": "fitpulse",
+    "title": "FitPulse",
+    "description": "A habit and workout tracker PWA with streaks, charts and a bouncy, clay-based design language.",
+    "image": "/images/projects/fitpulse.svg",
+    "techStack": ["react", "firebase", "tailwindcss"],
+    "liveUrl": "https://alshan-rijal.github.io/fitpulse",
+    "githubUrl": "https://github.com/alshan-rijal/fitpulse",
+    "featured": false,
+    "tone": "emerald"
+  },
+  {
+    "id": "gitglow",
+    "title": "GitGlow",
+    "description": "A GitHub profile analyzer that renders contribution glow-orb visualizations and shareable profile cards.",
+    "image": "/images/projects/gitglow.svg",
+    "techStack": ["react", "nodejs", "github", "typescript"],
+    "liveUrl": "https://alshan-rijal.github.io/gitglow",
+    "githubUrl": "https://github.com/alshan-rijal/gitglow",
+    "featured": false,
+    "tone": "amber"
+  }
+]

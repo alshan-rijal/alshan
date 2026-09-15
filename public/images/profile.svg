@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Profile photo placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#DDD6FE"/>
+      <stop offset="1" stop-color="#FBCFE8"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#7C3AED" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="668" cy="190" r="150" fill="#FFFFFF" opacity="0.28"/>
+  <circle cx="110" cy="830" r="190" fill="#FFFFFF" opacity="0.22"/>
+  <circle cx="700" cy="880" r="70" fill="#FFFFFF" opacity="0.3"/>
+  <rect x="200" y="560" width="400" height="400" rx="190" fill="#FFFFFF" opacity="0.88" filter="url(#soft)"/>
+  <circle cx="400" cy="410" r="175" fill="#FFFFFF" opacity="0.96" filter="url(#soft)"/>
+  <circle cx="338" cy="400" r="16" fill="#7C3AED"/>
+  <circle cx="462" cy="400" r="16" fill="#7C3AED"/>
+  <path d="M348 462 Q400 510 452 462" stroke="#7C3AED" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <circle cx="298" cy="452" r="19" fill="#F9A8D4" opacity="0.85"/>
+  <circle cx="502" cy="452" r="19" fill="#F9A8D4" opacity="0.85"/>
+  <text x="400" y="948" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#635F69">Replace with your photo — /public/images/profile.svg</text>
+</svg>

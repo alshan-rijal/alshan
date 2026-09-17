@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FiExternalLink, FiGithub, FiX } from 'react-icons/fi'
 import projects from '../data/projects.json'
 import techStack from '../data/techStack.json'
@@ -10,10 +10,34 @@ import Reveal from './ui/Reveal'
 import SectionHeading from './ui/SectionHeading'
 
 const AUTO_SCROLL_SPEED = 48
+const MODAL_TRANSITION_MS = 400
 const DRAG_THRESHOLD = 4
 const TECH_NAMES = Object.fromEntries(
   techStack.flatMap((group) => group.items.map((item) => [item.iconKey, item.name])),
 )
+
+function isVisibleRect(rect) {
+  return (
+    rect &&
+    rect.width > 0 &&
+    rect.height > 0 &&
+    rect.bottom > 0 &&
+    rect.right > 0 &&
+    rect.left < window.innerWidth &&
+    rect.top < window.innerHeight
+  )
+}
+
+function getOriginTransform(origin, target) {
+  const originCenterX = origin.left + origin.width / 2
+  const originCenterY = origin.top + origin.height / 2
+  const targetCenterX = target.left + target.width / 2
+  const targetCenterY = target.top + target.height / 2
+  const scaleX = Math.max(0.1, origin.width / target.width)
+  const scaleY = Math.max(0.1, origin.height / target.height)
+
+  return `translate(${originCenterX - targetCenterX}px, ${originCenterY - targetCenterY}px) scale(${scaleX}, ${scaleY})`
+}
 
 function ProjectCard({ project, duplicate = false, onOpen }) {
   return (
@@ -24,12 +48,12 @@ function ProjectCard({ project, duplicate = false, onOpen }) {
       aria-label={`View ${project.title} details`}
       onClick={(event) => {
         if (event.target.closest('a')) return
-        onOpen(project)
+        onOpen(project, event.currentTarget)
       }}
       onKeyDown={(event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return
         event.preventDefault()
-        onOpen(project)
+        onOpen(project, event.currentTarget)
       }}
       className="w-[300px] shrink-0 cursor-pointer rounded-clay-card outline-none focus-visible:ring-4 focus-visible:ring-clay-accent/30 sm:w-[380px]"
     >
@@ -63,7 +87,7 @@ function ProjectCard({ project, duplicate = false, onOpen }) {
             return (
               <span
                 key={key}
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/70 bg-white/80 text-base shadow-clayChip"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-clay-border/70 bg-clay-surface/80 text-base shadow-clayChip"
                 style={{ color: getIconColor(key) }}
               >
                 <Icon aria-hidden="true" />
@@ -98,30 +122,95 @@ function ProjectCard({ project, duplicate = false, onOpen }) {
   )
 }
 
-function ProjectModal({ project, onClose }) {
+function ProjectModal({
+  project,
+  closing,
+  originRect,
+  closeOriginRect,
+  reducedMotion,
+  onClose,
+}) {
+  const closeButtonRef = useRef(null)
+  const modalRef = useRef(null)
+  const [active, setActive] = useState(reducedMotion)
+
+  useEffect(() => {
+    closeButtonRef.current?.focus()
+    if (reducedMotion || !modalRef.current || !isVisibleRect(originRect)) {
+      setActive(true)
+      return undefined
+    }
+
+    const modal = modalRef.current
+    const targetRect = modal.getBoundingClientRect()
+    modal.style.transform = getOriginTransform(originRect, targetRect)
+    modal.style.opacity = '0.72'
+    const frame = requestAnimationFrame(() => {
+      modal.style.transform = 'translate(0, 0) scale(1, 1)'
+      modal.style.opacity = '1'
+      setActive(true)
+    })
+
+    return () => cancelAnimationFrame(frame)
+  }, [originRect, reducedMotion])
+
+  useEffect(() => {
+    if (!closing || !modalRef.current) return undefined
+    const modal = modalRef.current
+    if (reducedMotion || !isVisibleRect(closeOriginRect)) {
+      modal.style.transform = 'translate(0, 0) scale(1, 1)'
+      modal.style.opacity = '0'
+      return undefined
+    }
+
+    modal.style.transform = getOriginTransform(closeOriginRect, modal.getBoundingClientRect())
+    modal.style.opacity = '0.72'
+    return undefined
+  }, [closeOriginRect, closing, reducedMotion])
+
+  const visible = active && !closing
+  const detailMotion = reducedMotion
+    ? visible
+      ? 'opacity-100'
+      : 'opacity-0'
+    : visible
+      ? 'translate-y-0 opacity-100'
+      : 'translate-y-2 opacity-0'
+
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-clay-text/25 p-4 backdrop-blur-md"
+      className={`fixed inset-0 z-[60] flex items-center justify-center bg-clay-text/25 p-4 backdrop-blur-md transition-opacity duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        visible ? 'opacity-100' : 'opacity-0'
+      }`}
     >
       <div
+        ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-label={`${project.title} details`}
         onClick={(event) => event.stopPropagation()}
-        className="scrollbar-none relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-clay-container border border-white/70 bg-white/90 p-6 shadow-clayDeep backdrop-blur-xl sm:p-8"
+        className={`scrollbar-none relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-clay-container border border-clay-border/70 bg-clay-surface/90 p-6 shadow-clayDeep backdrop-blur-xl transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-8 ${
+          reducedMotion
+            ? visible
+              ? 'opacity-100'
+              : 'opacity-0'
+            : 'opacity-100'
+        }`}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close project details"
-          autoFocus
-          className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/90 text-lg text-clay-muted shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:text-clay-text hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+          ref={closeButtonRef}
+          className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-clay-border/70 bg-clay-surface/90 text-lg text-clay-muted shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:text-clay-text hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
         >
           <FiX aria-hidden="true" />
         </button>
 
-        <div className="overflow-hidden rounded-[24px] bg-clay-recess shadow-clayPressedSoft">
+        <div
+          className={`overflow-hidden rounded-[24px] bg-clay-recess shadow-clayPressedSoft transition-[opacity,transform] duration-[260ms] ease-out delay-75 ${detailMotion}`}
+        >
           <img
             src={project.image}
             alt={`${project.title} project preview`}
@@ -129,7 +218,9 @@ function ProjectModal({ project, onClose }) {
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div
+          className={`mt-6 flex flex-wrap items-center gap-3 transition-[opacity,transform] duration-[260ms] ease-out delay-100 ${detailMotion}`}
+        >
           <h3 className="font-display text-2xl font-black tracking-tight text-clay-text sm:text-3xl">
             {project.title}
           </h3>
@@ -140,17 +231,21 @@ function ProjectModal({ project, onClose }) {
           )}
         </div>
 
-        <p className="mt-3 text-base font-medium leading-relaxed text-clay-muted">
+        <p
+          className={`mt-3 text-base font-medium leading-relaxed text-clay-muted transition-[opacity,transform] duration-[260ms] ease-out delay-150 ${detailMotion}`}
+        >
           {project.description}
         </p>
 
-        <div className="mt-5 flex flex-wrap gap-2.5">
+        <div
+          className={`mt-5 flex flex-wrap gap-2.5 transition-[opacity,transform] duration-[260ms] ease-out delay-150 ${detailMotion}`}
+        >
           {project.techStack.map((key) => {
             const Icon = getIcon(key)
             return (
               <span
                 key={key}
-                className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-3.5 py-2.5 shadow-clayChip"
+                className="flex items-center gap-2.5 rounded-2xl border border-clay-border/70 bg-clay-surface/80 px-3.5 py-2.5 shadow-clayChip"
               >
                 <Icon
                   aria-hidden="true"
@@ -163,7 +258,9 @@ function ProjectModal({ project, onClose }) {
           })}
         </div>
 
-        <div className="mt-7 flex flex-wrap gap-3">
+        <div
+          className={`mt-7 flex flex-wrap gap-3 transition-[opacity,transform] duration-[260ms] ease-out delay-200 ${detailMotion}`}
+        >
           <ClayButton href={project.liveUrl} target="_blank" rel="noreferrer">
             <FiExternalLink aria-hidden="true" />
             Live Demo
@@ -194,10 +291,15 @@ export default function Projects() {
     moved: false,
   })
   const suppressClick = useRef(false)
+  const triggerRef = useRef(null)
+  const closeTimerRef = useRef(null)
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
   const [dragging, setDragging] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [modalClosing, setModalClosing] = useState(false)
+  const [modalOrigin, setModalOrigin] = useState(null)
+  const [modalCloseOrigin, setModalCloseOrigin] = useState(null)
 
   const paused = hovered || focused || dragging || Boolean(selected) || reducedMotion
 
@@ -228,11 +330,40 @@ export default function Projects() {
     return () => cancelAnimationFrame(frame)
   }, [paused])
 
+  const handleClose = useCallback(() => {
+    if (!selected || modalClosing) return
+    const rect = triggerRef.current?.getBoundingClientRect()
+    setModalCloseOrigin(
+      rect
+        ? {
+            bottom: rect.bottom,
+            height: rect.height,
+            left: rect.left,
+            right: rect.right,
+            top: rect.top,
+            width: rect.width,
+          }
+        : null,
+    )
+    if (reducedMotion) {
+      setSelected(null)
+      triggerRef.current?.focus()
+      return
+    }
+
+    setModalClosing(true)
+    closeTimerRef.current = setTimeout(() => {
+      setSelected(null)
+      setModalClosing(false)
+      triggerRef.current?.focus()
+    }, MODAL_TRANSITION_MS)
+  }, [modalClosing, reducedMotion, selected])
+
   useEffect(() => {
     if (!selected) return undefined
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') setSelected(null)
+      if (event.key === 'Escape') handleClose()
     }
     window.addEventListener('keydown', onKeyDown)
 
@@ -243,7 +374,26 @@ export default function Projects() {
       window.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = previousOverflow
     }
-  }, [selected])
+  }, [handleClose, modalClosing, reducedMotion, selected])
+
+  useEffect(() => () => clearTimeout(closeTimerRef.current), [])
+
+  const handleOpen = (project, trigger) => {
+    clearTimeout(closeTimerRef.current)
+    triggerRef.current = trigger
+    const rect = trigger.getBoundingClientRect()
+    setModalOrigin({
+      bottom: rect.bottom,
+      height: rect.height,
+      left: rect.left,
+      right: rect.right,
+      top: rect.top,
+      width: rect.width,
+    })
+    setModalCloseOrigin(null)
+    setModalClosing(false)
+    setSelected(project)
+  }
 
   const handlePointerDown = (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return
@@ -334,7 +484,7 @@ export default function Projects() {
                     key={project.id}
                     project={project}
                     duplicate={copy === 1}
-                    onOpen={setSelected}
+                    onOpen={handleOpen}
                   />
                 ))}
               </div>
@@ -349,7 +499,16 @@ export default function Projects() {
         )}
       </Reveal>
 
-      {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <ProjectModal
+          project={selected}
+          closing={modalClosing}
+          originRect={modalOrigin}
+          closeOriginRect={modalCloseOrigin}
+          reducedMotion={reducedMotion}
+          onClose={handleClose}
+        />
+      )}
     </section>
   )
 }

@@ -18,7 +18,7 @@ import SectionHeading from './ui/SectionHeading'
 const EMPTY_FORM = { name: '', email: '', message: '' }
 
 const fieldBase =
-  'w-full rounded-2xl border-0 bg-clay-recess px-5 font-medium text-clay-text shadow-clayPressed transition-all duration-300 placeholder:text-clay-muted/70 focus:bg-white focus:shadow-none focus:ring-4 focus:ring-clay-accent/20 focus:outline-none focus-visible:outline-none'
+  'w-full rounded-2xl border-0 bg-clay-recess px-5 font-medium text-clay-text shadow-clayPressed transition-all duration-300 placeholder:text-clay-muted/70 focus:bg-clay-surface focus:shadow-none focus:ring-4 focus:ring-clay-accent/20 focus:outline-none focus-visible:outline-none'
 
 const contactDetails = [
   {
@@ -187,7 +187,7 @@ export default function Contact() {
                         aria-label={social.platform}
                         target={social.url.startsWith('http') ? '_blank' : undefined}
                         rel={social.url.startsWith('http') ? 'noreferrer' : undefined}
-                        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+                        className="flex h-12 w-12 items-center justify-center rounded-full border border-clay-border/70 bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
                       >
                         <Icon aria-hidden="true" />
                       </a>

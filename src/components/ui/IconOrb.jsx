@@ -1,4 +1,5 @@
 import { createElement } from 'react'
+import { useTheme } from '../../hooks/useTheme'
 import { clayOrbShadow, toneGradient } from '../../lib/clay'
 import { getIcon } from '../../lib/icons'
 
@@ -17,13 +18,14 @@ export default function IconOrb({
   className = '',
 }) {
   const Icon = getIcon(icon)
+  const { theme } = useTheme()
 
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center text-white ${
         shape === 'circle' ? 'rounded-full' : 'rounded-2xl'
       } ${SIZES[size]} ${breathe ? 'animate-clay-breathe' : ''} ${className}`}
-      style={{ ...toneGradient(tone), ...clayOrbShadow(tone) }}
+      style={{ ...toneGradient(tone, theme), ...clayOrbShadow(tone, theme) }}
     >
       {createElement(Icon, { 'aria-hidden': true })}
     </span>

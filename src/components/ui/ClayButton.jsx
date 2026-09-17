@@ -2,9 +2,9 @@ const VARIANTS = {
   primary:
     'bg-linear-to-r from-clay-accent-soft to-clay-accent text-white shadow-clayButton hover:shadow-clayButtonHover',
   secondary:
-    'bg-white/80 text-clay-text backdrop-blur-xl shadow-clayButton hover:shadow-clayButtonHover',
+    'bg-clay-surface/80 text-clay-text backdrop-blur-xl shadow-clayButton hover:shadow-clayButtonHover',
   outline:
-    'border-2 border-clay-accent/40 bg-white/40 text-clay-accent backdrop-blur-xl shadow-clayChip hover:bg-white/70 hover:shadow-clayChipHover',
+    'border-2 border-clay-accent/40 bg-clay-surface/40 text-clay-accent backdrop-blur-xl shadow-clayChip hover:bg-clay-surface/70 hover:shadow-clayChipHover',
 }
 
 const SIZES = {

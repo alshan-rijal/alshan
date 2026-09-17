@@ -10,7 +10,7 @@ function TechChip({ item }) {
   const Icon = getIcon(item.iconKey)
 
   return (
-    <span className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-4 py-3 shadow-clayChip transition-all duration-300 hover:-translate-y-1 hover:shadow-clayChipHover">
+    <span className="flex items-center gap-2.5 rounded-2xl border border-clay-border/70 bg-clay-surface/80 px-4 py-3 shadow-clayChip transition-all duration-300 hover:-translate-y-1 hover:shadow-clayChipHover">
       {createElement(Icon, {
         'aria-hidden': true,
         className: 'text-xl',

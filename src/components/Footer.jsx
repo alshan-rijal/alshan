@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="relative px-4 pb-10 pt-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="rounded-clay-container border border-white/70 bg-white/60 p-8 shadow-clayCard backdrop-blur-xl sm:p-10">
+        <div className="rounded-clay-container border border-clay-border/70 bg-clay-surface/60 p-8 shadow-clayCard backdrop-blur-xl sm:p-10">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-sm">
               <div className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export default function Footer() {
                       aria-label={social.platform}
                       target={social.url.startsWith('http') ? '_blank' : undefined}
                       rel={social.url.startsWith('http') ? 'noreferrer' : undefined}
-                      className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+                      className="flex h-12 w-12 items-center justify-center rounded-full border border-clay-border/70 bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
                     >
                       <Icon aria-hidden="true" />
                     </a>
@@ -85,7 +85,7 @@ export default function Footer() {
             </p>
             <a
               href="#home"
-              className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-xs font-bold text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+              className="inline-flex items-center gap-2 rounded-full bg-clay-surface/80 px-4 py-2 text-xs font-bold text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
             >
               <FiArrowUp aria-hidden="true" />
               Back to top

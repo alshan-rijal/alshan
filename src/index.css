@@ -11,6 +11,7 @@
   --color-clay-canvas: #f4f1fa;
   --color-clay-surface: #faf8fd;
   --color-clay-recess: #efebf5;
+  --color-clay-border: #ffffff;
   --color-clay-text: #332f3a;
   --color-clay-muted: #635f69;
   --color-clay-accent: #7c3aed;
@@ -88,6 +89,121 @@
   }
 }
 
+:root {
+  --clay-shadow-deep:
+    30px 30px 60px rgba(205, 198, 217, 0.9),
+    -30px -30px 60px rgba(255, 255, 255, 0.95),
+    inset 10px 10px 20px rgba(139, 92, 246, 0.05),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.8);
+  --clay-shadow-card:
+    16px 16px 32px rgba(160, 150, 180, 0.2),
+    -10px -10px 24px rgba(255, 255, 255, 0.9),
+    inset 6px 6px 12px rgba(139, 92, 246, 0.03),
+    inset -6px -6px 12px rgba(255, 255, 255, 1);
+  --clay-shadow-card-hover:
+    22px 22px 44px rgba(160, 150, 180, 0.28),
+    -12px -12px 28px rgba(255, 255, 255, 1),
+    inset 6px 6px 12px rgba(139, 92, 246, 0.04),
+    inset -6px -6px 12px rgba(255, 255, 255, 1);
+  --clay-shadow-card-strong:
+    24px 24px 48px rgba(160, 150, 180, 0.32),
+    -16px -16px 36px rgba(255, 255, 255, 0.95),
+    inset 8px 8px 16px rgba(139, 92, 246, 0.05),
+    inset -8px -8px 16px rgba(255, 255, 255, 1);
+  --clay-shadow-card-strong-hover:
+    28px 28px 56px rgba(160, 150, 180, 0.4),
+    -18px -18px 40px rgba(255, 255, 255, 1),
+    inset 8px 8px 16px rgba(139, 92, 246, 0.06),
+    inset -8px -8px 16px rgba(255, 255, 255, 1);
+  --clay-shadow-button:
+    12px 12px 24px rgba(139, 92, 246, 0.3),
+    -8px -8px 16px rgba(255, 255, 255, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.1);
+  --clay-shadow-button-hover:
+    16px 16px 30px rgba(139, 92, 246, 0.4),
+    -10px -10px 20px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.5),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.12);
+  --clay-shadow-chip:
+    6px 6px 14px rgba(160, 150, 180, 0.28),
+    -4px -4px 10px rgba(255, 255, 255, 0.95),
+    inset 3px 3px 6px rgba(139, 92, 246, 0.05),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.95);
+  --clay-shadow-chip-hover:
+    9px 9px 18px rgba(139, 92, 246, 0.28),
+    -5px -5px 12px rgba(255, 255, 255, 1),
+    inset 3px 3px 6px rgba(139, 92, 246, 0.06),
+    inset -3px -3px 6px rgba(255, 255, 255, 1);
+  --clay-shadow-nav: 0 8px 24px rgba(160, 150, 180, 0.15);
+  --clay-shadow-pill:
+    10px 10px 22px rgba(160, 150, 180, 0.25),
+    -6px -6px 16px rgba(255, 255, 255, 0.85);
+  --clay-shadow-pressed:
+    inset 10px 10px 20px #d9d4e3,
+    inset -10px -10px 20px #ffffff;
+  --clay-shadow-pressed-soft:
+    inset 5px 5px 10px #d9d4e3,
+    inset -5px -5px 10px #ffffff;
+}
+
+[data-theme='dark'] {
+  --color-clay-canvas: #17151d;
+  --color-clay-surface: #24212d;
+  --color-clay-recess: #1d1a25;
+  --color-clay-border: #3a3545;
+  --color-clay-text: #f3eefb;
+  --color-clay-muted: #b8afc2;
+
+  --clay-shadow-deep:
+    30px 30px 60px rgba(5, 4, 9, 0.7),
+    -30px -30px 60px rgba(65, 59, 78, 0.45),
+    inset 10px 10px 20px rgba(0, 0, 0, 0.2),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.08);
+  --clay-shadow-card:
+    16px 16px 32px rgba(5, 4, 9, 0.45),
+    -10px -10px 24px rgba(65, 59, 78, 0.35),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.13),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.06);
+  --clay-shadow-card-hover:
+    22px 22px 44px rgba(5, 4, 9, 0.58),
+    -12px -12px 28px rgba(65, 59, 78, 0.42),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.17),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.08);
+  --clay-shadow-card-strong: var(--clay-shadow-card);
+  --clay-shadow-card-strong-hover: var(--clay-shadow-card-hover);
+  --clay-shadow-button:
+    12px 12px 24px rgba(5, 4, 9, 0.5),
+    -8px -8px 16px rgba(255, 255, 255, 0.12),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.12),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.28);
+  --clay-shadow-button-hover:
+    16px 16px 30px rgba(5, 4, 9, 0.65),
+    -10px -10px 20px rgba(255, 255, 255, 0.16),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.15),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.32);
+  --clay-shadow-chip:
+    6px 6px 14px rgba(5, 4, 9, 0.42),
+    -4px -4px 10px rgba(255, 255, 255, 0.12),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.14),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.07);
+  --clay-shadow-chip-hover:
+    9px 9px 18px rgba(5, 4, 9, 0.52),
+    -5px -5px 12px rgba(255, 255, 255, 0.16),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.18),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.09);
+  --clay-shadow-nav: 0 8px 24px rgba(5, 4, 9, 0.4);
+  --clay-shadow-pill:
+    10px 10px 22px rgba(5, 4, 9, 0.4),
+    -6px -6px 16px rgba(255, 255, 255, 0.1);
+  --clay-shadow-pressed:
+    inset 10px 10px 20px #110f16,
+    inset -10px -10px 20px #302c3a;
+  --clay-shadow-pressed-soft:
+    inset 5px 5px 10px #110f16,
+    inset -5px -5px 10px #302c3a;
+}
+
 /* ============================================================
    4-LAYER SHADOW ARCHITECTURE
    outer colored drop + top-left highlight + inner reflection +
@@ -96,109 +212,67 @@
 
 /* Deep clay — large hero surfaces */
 @utility shadow-clayDeep {
-  box-shadow:
-    30px 30px 60px #cdc6d9,
-    -30px -30px 60px #ffffff,
-    inset 10px 10px 20px rgba(139, 92, 246, 0.05),
-    inset -10px -10px 20px rgba(255, 255, 255, 0.8);
+  box-shadow: var(--clay-shadow-deep);
 }
 
 /* Clay card — floating content cards */
 @utility shadow-clayCard {
-  box-shadow:
-    16px 16px 32px rgba(160, 150, 180, 0.2),
-    -10px -10px 24px rgba(255, 255, 255, 0.9),
-    inset 6px 6px 12px rgba(139, 92, 246, 0.03),
-    inset -6px -6px 12px rgba(255, 255, 255, 1);
+  box-shadow: var(--clay-shadow-card);
 }
 
 /* Clay card hover — lifted, softer spread */
 @utility shadow-clayCardHover {
-  box-shadow:
-    22px 22px 44px rgba(160, 150, 180, 0.28),
-    -12px -12px 28px rgba(255, 255, 255, 1),
-    inset 6px 6px 12px rgba(139, 92, 246, 0.04),
-    inset -6px -6px 12px rgba(255, 255, 255, 1);
+  box-shadow: var(--clay-shadow-card-hover);
 }
 
 /* Clay card strong — deeper stack for feature surfaces */
 @utility shadow-clayCardStrong {
-  box-shadow:
-    24px 24px 48px rgba(160, 150, 180, 0.32),
-    -16px -16px 36px rgba(255, 255, 255, 0.95),
-    inset 8px 8px 16px rgba(139, 92, 246, 0.05),
-    inset -8px -8px 16px rgba(255, 255, 255, 1);
+  box-shadow: var(--clay-shadow-card-strong);
 }
 
 /* Clay card strong hover — deepens further on lift */
 @utility shadow-clayCardStrongHover {
-  box-shadow:
-    28px 28px 56px rgba(160, 150, 180, 0.4),
-    -18px -18px 40px rgba(255, 255, 255, 1),
-    inset 8px 8px 16px rgba(139, 92, 246, 0.06),
-    inset -8px -8px 16px rgba(255, 255, 255, 1);
+  box-shadow: var(--clay-shadow-card-strong-hover);
 }
 
 /* Clay button — convex, clickable */
 @utility shadow-clayButton {
-  box-shadow:
-    12px 12px 24px rgba(139, 92, 246, 0.3),
-    -8px -8px 16px rgba(255, 255, 255, 0.4),
-    inset 4px 4px 8px rgba(255, 255, 255, 0.4),
-    inset -4px -4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--clay-shadow-button);
 }
 
 /* Clay button hover — slightly deeper cast */
 @utility shadow-clayButtonHover {
-  box-shadow:
-    16px 16px 30px rgba(139, 92, 246, 0.4),
-    -10px -10px 20px rgba(255, 255, 255, 0.5),
-    inset 4px 4px 8px rgba(255, 255, 255, 0.5),
-    inset -4px -4px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--clay-shadow-button-hover);
 }
 
 /* Clay chip — small tiles, icon chips, badges */
 @utility shadow-clayChip {
-  box-shadow:
-    6px 6px 14px rgba(160, 150, 180, 0.28),
-    -4px -4px 10px rgba(255, 255, 255, 0.95),
-    inset 3px 3px 6px rgba(139, 92, 246, 0.05),
-    inset -3px -3px 6px rgba(255, 255, 255, 0.95);
+  box-shadow: var(--clay-shadow-chip);
 }
 
 /* Clay chip hover */
 @utility shadow-clayChipHover {
-  box-shadow:
-    9px 9px 18px rgba(139, 92, 246, 0.28),
-    -5px -5px 12px rgba(255, 255, 255, 1),
-    inset 3px 3px 6px rgba(139, 92, 246, 0.06),
-    inset -3px -3px 6px rgba(255, 255, 255, 1);
+  box-shadow: var(--clay-shadow-chip-hover);
 }
 
 /* Clay nav — soft lift beneath the floating navbar */
 @utility shadow-clayNav {
-  box-shadow: 0 8px 24px rgba(160, 150, 180, 0.15);
+  box-shadow: var(--clay-shadow-nav);
 }
 
 /* Clay pill — raised chips and avatar ring inside cards */
 @utility shadow-clayPill {
-  box-shadow:
-    10px 10px 22px rgba(160, 150, 180, 0.25),
-    -6px -6px 16px rgba(255, 255, 255, 0.85);
+  box-shadow: var(--clay-shadow-pill);
 }
 
 /* Clay pressed — inputs, active states, squished buttons */
 @utility shadow-clayPressed {
-  box-shadow:
-    inset 10px 10px 20px #d9d4e3,
-    inset -10px -10px 20px #ffffff;
+  box-shadow: var(--clay-shadow-pressed);
 }
 
 /* Clay pressed soft — small recessed controls */
 @utility shadow-clayPressedSoft {
-  box-shadow:
-    inset 5px 5px 10px #d9d4e3,
-    inset -5px -5px 10px #ffffff;
+  box-shadow: var(--clay-shadow-pressed-soft);
 }
 
 /* ============================================================
@@ -233,13 +307,13 @@
 /* Scrollable clay scrollbar (mobile + reduced-motion fallback) */
 .scrollbar-clay {
   scrollbar-width: thin;
-  scrollbar-color: #a78bfa #e8e3f2;
+  scrollbar-color: #a78bfa var(--color-clay-recess);
 }
 .scrollbar-clay::-webkit-scrollbar {
   height: 10px;
 }
 .scrollbar-clay::-webkit-scrollbar-track {
-  background: #e8e3f2;
+  background: var(--color-clay-recess);
   border-radius: 999px;
 }
 .scrollbar-clay::-webkit-scrollbar-thumb {

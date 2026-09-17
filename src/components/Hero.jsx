@@ -25,7 +25,7 @@ export default function Hero() {
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm font-bold text-clay-muted shadow-clayChip backdrop-blur-xl">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-clay-border/70 bg-clay-surface/70 px-4 py-2 text-sm font-bold text-clay-muted shadow-clayChip backdrop-blur-xl">
             <span className="h-2.5 w-2.5 animate-clay-breathe rounded-full bg-clay-emerald" />
             {hero.greeting}
           </span>
@@ -68,7 +68,7 @@ export default function Hero() {
                   aria-label={social.platform}
                   target={social.url.startsWith('http') ? '_blank' : undefined}
                   rel={social.url.startsWith('http') ? 'noreferrer' : undefined}
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-clay-border/70 bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-1 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
                 >
                   <Icon aria-hidden="true" />
                 </a>
@@ -83,7 +83,7 @@ export default function Hero() {
             className="absolute -inset-10 -z-10 rounded-full bg-clay-accent/15 blur-3xl"
           />
 
-          <div className="animate-clay-float-hero rounded-clay-container-lg border border-white/70 bg-white/60 p-4 shadow-clayDeep backdrop-blur-xl sm:p-5">
+          <div className="animate-clay-float-hero rounded-clay-container-lg border border-clay-border/70 bg-clay-surface/60 p-4 shadow-clayDeep backdrop-blur-xl sm:p-5">
             <div className="overflow-hidden rounded-[44px] bg-clay-recess">
               <img
                 src={profile.photo}
@@ -104,7 +104,7 @@ export default function Hero() {
                   className={motion.float}
                   style={{ animationDuration: motion.duration, animationDelay: motion.delay }}
                 >
-                  <div className="flex items-center gap-3.5 rounded-clay-pill border border-white/70 bg-white/85 py-4 pl-4 pr-7 shadow-clayCard backdrop-blur-xl">
+                  <div className="flex items-center gap-3.5 rounded-clay-pill border border-clay-border/70 bg-clay-surface/85 py-4 pl-4 pr-7 shadow-clayCard backdrop-blur-xl">
                     <IconOrb icon={stat.icon} tone={stat.tone} size="md" />
                     <div className="flex flex-col leading-tight">
                       <span className="font-display text-2xl font-black text-clay-text">

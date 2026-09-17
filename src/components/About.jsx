@@ -82,7 +82,7 @@ export default function About() {
                     return (
                       <li
                         key={area.label}
-                        className="flex h-14 items-center gap-3 rounded-clay-pill border border-white/60 bg-white px-4 text-sm font-bold text-clay-muted shadow-clayPill"
+                        className="flex h-14 items-center gap-3 rounded-clay-pill border border-clay-border/60 bg-clay-surface px-4 text-sm font-bold text-clay-muted shadow-clayPill"
                       >
                         <Icon
                           aria-hidden="true"

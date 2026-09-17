@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiMoon, FiMenu, FiSun, FiX } from 'react-icons/fi'
 import profile from '../data/profile.json'
 import { useScrollSpy } from '../hooks/useScrollSpy'
+import { useTheme } from '../hooks/useTheme'
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -22,17 +23,18 @@ const initials = profile.name
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const activeId = useScrollSpy(NAV_IDS)
+  const { theme, toggleTheme } = useTheme()
 
   const linkClasses = (id) =>
     `rounded-full px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
       activeId === id
         ? 'bg-clay-recess text-clay-accent shadow-clayPressedSoft'
-        : 'text-clay-muted hover:-translate-y-0.5 hover:bg-white/80 hover:text-clay-text'
+        : 'text-clay-muted hover:-translate-y-0.5 hover:bg-clay-surface/80 hover:text-clay-text'
     }`
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-clay-card border border-white/70 bg-white/70 px-4 shadow-clayNav backdrop-blur-xl sm:px-6">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-clay-card border border-clay-border/70 bg-clay-surface/70 px-4 shadow-clayNav backdrop-blur-xl sm:px-6">
         <a href="#home" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <span className="font-display flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-clay-accent-soft to-clay-accent text-sm font-black text-white shadow-clayChip">
             {initials}
@@ -53,6 +55,15 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            className="flex h-11 w-11 items-center justify-center rounded-clay-btn bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+          >
+            {theme === 'dark' ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
+          </button>
+
           <a
             href="#contact"
             className="font-display hidden h-11 items-center justify-center rounded-clay-btn bg-linear-to-r from-clay-accent-soft to-clay-accent px-5 text-sm font-extrabold text-white shadow-clayButton transition-all duration-200 hover:-translate-y-1 hover:shadow-clayButtonHover active:scale-[0.92] active:shadow-clayPressed sm:inline-flex"
@@ -65,7 +76,7 @@ export default function Navbar() {
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="flex h-11 w-11 items-center justify-center rounded-clay-btn bg-white/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-clay-btn bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed lg:hidden"
           >
             {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
           </button>
@@ -73,7 +84,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-auto mt-3 max-w-6xl rounded-clay-pill border border-white/70 bg-white/80 p-3 shadow-clayNav backdrop-blur-xl lg:hidden">
+        <div className="mx-auto mt-3 max-w-6xl rounded-clay-pill border border-clay-border/70 bg-clay-surface/80 p-3 shadow-clayNav backdrop-blur-xl lg:hidden">
           <ul className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
@@ -83,7 +94,7 @@ export default function Navbar() {
                   className={`block rounded-[16px] px-4 py-3 text-sm font-bold transition-colors duration-200 ${
                     activeId === item.id
                       ? 'bg-clay-recess text-clay-accent shadow-clayPressedSoft'
-                      : 'text-clay-muted hover:bg-white/80 hover:text-clay-text'
+                      : 'text-clay-muted hover:bg-clay-surface/80 hover:text-clay-text'
                   }`}
                 >
                   {item.label}

@@ -5,7 +5,7 @@ export default function SectionHeading({ eyebrow, title, highlight, subtitle, al
   return (
     <div className={`flex flex-col gap-5 ${alignment}`}>
       {eyebrow && (
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-1.5 text-xs font-bold tracking-[0.22em] text-clay-accent uppercase shadow-clayChip backdrop-blur-xl">
+        <span className="inline-flex items-center gap-2 rounded-full border border-clay-border/70 bg-clay-surface/70 px-4 py-1.5 text-xs font-bold tracking-[0.22em] text-clay-accent uppercase shadow-clayChip backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-linear-to-br from-clay-accent-soft to-clay-pink" />
           {eyebrow}
         </span>

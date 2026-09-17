@@ -7,7 +7,20 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="theme-color" content="#F4F1FA" />
+    <meta name="theme-color" content="#f4f1fa" />
+
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem('portfolio-theme')
+          const dark = stored === 'dark' || (stored !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+        } catch {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
 
     <meta
       name="description"

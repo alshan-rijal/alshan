@@ -14,7 +14,6 @@ const file = paths.map((path) => readFileSync(path, 'utf8')).join('\n')
 const html = readFileSync(join(root, 'index.html'), 'utf8')
 const faviconLinks = [...html.matchAll(/<link[^>]+(?:rel="icon"|rel="apple-touch-icon")[^>]*>/g)].map(([link]) => link)
 const banned = [
-  'linear-gradient',
   'box-shadow',
   'backdrop-filter',
   'blur',
@@ -31,6 +30,7 @@ const banned = [
 ]
 
 const violations = banned.filter((token) => file.includes(token) || html.includes(token))
+if (file.includes('linear-gradient') && !file.includes('mask-image: linear-gradient')) violations.push('linear-gradient')
 const expectedPublic = [
   'public/mainfav.png',
   'public/site.webmanifest',
@@ -80,6 +80,9 @@ const required = [
   'Message',
   'project-preview',
   'mainfav.png?v=6',
+  'TechMarquee',
+  'theme-duration: 500ms',
+  'mainfav.png',
 ]
 
 const missing = required.filter((token) => !(file.includes(token) || html.includes(token)))

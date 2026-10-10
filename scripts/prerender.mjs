@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createElement } from 'react'
@@ -37,6 +37,7 @@ try {
   }
   write('', home, 'Alshan Rijal | AI/ML and Cloud Engineer, Nepal', 'https://alshanrijal.com.np/')
   write('privacy', privacy, 'Privacy Policy | Alshan Rijal', 'https://alshanrijal.com.np/privacy')
+  copyFileSync(join(root, 'dist', 'privacy', 'index.html'), join(root, 'dist', 'privacy.html'))
   console.log('Prerendered dist/index.html and dist/privacy/index.html')
 } finally {
   await server.close()

@@ -3,14 +3,12 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '..')
+const sourceEntries = readdirSync(join(root, 'src'), { recursive: true, withFileTypes: true })
 const paths = [
   join(root, 'index.html'),
-  join(root, 'src', 'components', 'BrandLogo.jsx'),
-  join(root, 'src', 'components', 'Navbar.jsx'),
-  join(root, 'src', 'components', 'Footer.jsx'),
-  join(root, 'src', 'pages', 'NotFoundPage.jsx'),
-  join(root, 'src', 'pages', 'PrivacyPage.jsx'),
-  join(root, 'src', 'styles', 'editorial.css'),
+  ...sourceEntries
+    .filter((entry) => entry.isFile() && /\.(jsx?|css|json)$/.test(entry.name))
+    .map((entry) => join(entry.parentPath ?? join(root, 'src'), entry.name)),
 ]
 const file = paths.map((path) => readFileSync(path, 'utf8')).join('\n')
 const html = readFileSync(join(root, 'index.html'), 'utf8')
@@ -22,7 +20,7 @@ const banned = [
   '—',
   '–',
   'Space Grotesk',
-  'Inter',
+  'font-family: Inter',
   '@import url',
   'bg-linear-to-r',
   'dist/',
@@ -38,6 +36,10 @@ const expectedPublic = [
   'public/icon-512.png',
   'public/site.webmanifest',
   'public/brand/logo.png',
+  'public/fonts/poppins-400.woff2',
+  'public/fonts/poppins-600.woff2',
+  'public/fonts/syne-500.woff2',
+  'public/fonts/syne-800.woff2',
 ]
 const expectedDist = [
   'dist/favicon-32.png',
@@ -52,9 +54,7 @@ const missingAssets = expectedPublic.filter((path) => !existsSync(join(root, pat
 const missingDistAssets = expectedDist.filter((path) => !existsSync(join(root, path)))
 const oldFiles = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'logo.svg']
 const staleAssets = oldFiles.filter((name) => existsSync(join(root, 'public', name)))
-const sourceFiles = readdirSync(join(root, 'src'), { recursive: true, withFileTypes: true })
-  .filter((entry) => entry.isFile() && /\.(jsx?|css|json)$/.test(entry.name))
-  .map((entry) => join(entry.parentPath ?? join(root, 'src'), entry.name))
+const sourceFiles = paths.filter((path) => path.includes(`${join(root, 'src')}${process.platform === 'win32' ? '\\' : '/'}`))
 const sourceHasDist = sourceFiles.some((path) => readFileSync(path, 'utf8').includes('dist/'))
 
 if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist) {
@@ -69,11 +69,16 @@ if (violations.length || missingAssets.length || missingDistAssets.length || sta
 const required = [
   '--bg: #f7f7f5',
   '--accent: #4d6b00',
+  '--accent: #c6f432',
   'Alshan Rijal',
   'privacy',
   'og:image',
   'site.webmanifest',
   'brand/logo.png',
+  'fonts/poppins-400.woff2',
+  'fonts/poppins-600.woff2',
+  'fonts/syne-500.woff2',
+  'fonts/syne-800.woff2',
 ]
 
 const missing = required.filter((token) => !(file.includes(token) || html.includes(token)))

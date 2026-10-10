@@ -54,6 +54,9 @@ try {
   if (!html.includes('brand/logo-32.png') || !html.includes('brand/logo-32-dark.png')) {
     throw new Error('Rendered header/footer logo variants are missing.')
   }
+  if (!html.includes('Open a conversation') && !html.includes('contact')) {
+    throw new Error('Contact surface is missing.')
+  }
 
   console.log(`Smoke render OK - ${html.length} chars, all sections, data and logo references present.`)
 } finally {

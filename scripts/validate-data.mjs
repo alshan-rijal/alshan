@@ -7,8 +7,6 @@ const readJson = (name) => JSON.parse(readFileSync(join(root, 'src', 'data', nam
 
 const profile = readJson('profile.json')
 const projects = readJson('projects.json')
-const techStack = readJson('techStack.json')
-const education = readJson('education.json')
 
 const missingAssets = []
 const checkAsset = (path, where) => {

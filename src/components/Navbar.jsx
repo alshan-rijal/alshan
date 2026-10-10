@@ -67,12 +67,14 @@ export default function Navbar() {
   useEffect(() => {
     if (!open) {
       document.body.style.overflow = ''
+      document.documentElement.classList.remove('mobile-nav-open')
       document.querySelector('.site-shell')?.removeAttribute('inert')
       menuButtonRef.current?.focus()
       return undefined
     }
 
     document.body.style.overflow = 'hidden'
+    document.documentElement.classList.add('mobile-nav-open')
     document.querySelector('.site-shell')?.setAttribute('inert', '')
     const menu = menuRef.current
     const focusable = menu?.querySelectorAll('a, button')
@@ -100,6 +102,7 @@ export default function Navbar() {
     window.addEventListener('resize', onResize)
     return () => {
       document.body.style.overflow = ''
+      document.documentElement.classList.remove('mobile-nav-open')
       document.querySelector('.site-shell')?.removeAttribute('inert')
       document.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('resize', onResize)

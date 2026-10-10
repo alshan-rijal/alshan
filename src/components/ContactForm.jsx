@@ -1,12 +1,23 @@
 import { useContactForm } from '../hooks/useContactForm'
 
 export default function ContactForm() {
-  const { values, setField, submit, status, error, success } = useContactForm()
+  const { values, setField, submit, reset, status, error, success } = useContactForm()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (status === 'loading') return
     await submit()
+  }
+
+  if (status === 'success') {
+    return (
+      <div className="form-success" role="status">
+        <svg className="success-check" viewBox="0 0 52 52" aria-hidden="true"><path d="m10 27 11 11 21-24" /></svg>
+        <strong>Message sent</strong>
+        <p>I will reply to the address you entered.</p>
+        <button type="button" className="text-button" onClick={reset}>Send another</button>
+      </div>
+    )
   }
 
   return (
@@ -21,6 +32,7 @@ export default function ContactForm() {
             value={values.name}
             onChange={setField}
             required
+            aria-label="Name"
           />
         </label>
 
@@ -33,6 +45,7 @@ export default function ContactForm() {
             value={values.email}
             onChange={setField}
             required
+            aria-label="Email"
           />
         </label>
       </div>
@@ -58,17 +71,18 @@ export default function ContactForm() {
           minLength={10}
           maxLength={2000}
           required
+          aria-label="Message"
         />
+        <span className="message-count">{values.message.length} / 2000</span>
       </label>
 
       <div className="form-actions">
         <button className="button primary" type="submit" disabled={status === 'loading'}>
-          {status === 'loading' ? 'Sending...' : 'Send'}
+          {status === 'loading' ? 'Sending' : 'Send'}
         </button>
       </div>
 
-      {error ? <p className="form-message error">{error}</p> : null}
-      {success ? <p className="form-message success">{success}</p> : null}
+      {error ? <p className="form-message error" role="alert">{error}</p> : null}
     </form>
   )
 }

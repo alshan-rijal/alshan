@@ -22,6 +22,13 @@ export function useContactForm() {
     setValues((current) => ({ ...current, [name]: value }))
   }
 
+  const reset = () => {
+    setValues(EMPTY_FORM)
+    setStatus('idle')
+    setError('')
+    setSuccess('')
+  }
+
   const submit = async () => {
     const normalized = {
       name: values.name.trim(),
@@ -83,5 +90,5 @@ export function useContactForm() {
     }
   }
 
-  return { values, setField, submit, status, error, success }
+  return { values, setField, submit, reset, status, error, success }
 }

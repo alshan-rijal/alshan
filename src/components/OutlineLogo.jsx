@@ -6,11 +6,10 @@ export function OutlineLogo({ size = 18, className = '' }) {
   )
 }
 
-export function MessageIcon({ size = 22 }) {
+export function MessageIcon({ size = 22, open = false }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 5.5h16v11H9l-5 3v-14Z" />
-      <path d="M8 10h8M8 13h5" strokeLinecap="round" />
+      {open ? <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" /> : <><path d="M4 5.5h16v11H9l-5 3v-14Z" /><path d="M8 10h8M8 13h5" strokeLinecap="round" /></>}
     </svg>
   )
 }

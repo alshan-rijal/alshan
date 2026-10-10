@@ -6,6 +6,18 @@ export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const buttonRef = useRef(null)
   const panelRef = useRef(null)
+  const [collapsed, setCollapsed] = useState(false)
+  const lastScroll = useRef(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const current = window.scrollY
+      setCollapsed(current > lastScroll.current && current > 120)
+      lastScroll.current = current
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) {
@@ -35,18 +47,19 @@ export default function ChatWidget() {
   }, [open])
 
   return (
-    <div className={`chat-widget${open ? ' is-open' : ''}`}>
+    <div className={`chat-widget${open ? ' is-open' : ''}${collapsed ? ' is-collapsed' : ''}`}>
       {open && (
-        <section ref={panelRef} className="chat-panel" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+        <section id="contact-panel" ref={panelRef} className="chat-panel" role="dialog" aria-modal="true" aria-labelledby="chat-title">
           <div className="chat-panel-heading">
-            <h2 id="chat-title">Start a conversation</h2>
+            <div><h2 id="chat-title">Send a message</h2><p>I will reply to your email.</p></div>
             <button type="button" className="chat-close" onClick={() => setOpen(false)} aria-label="Close contact form">×</button>
           </div>
           <ContactForm />
         </section>
       )}
-      <button ref={buttonRef} type="button" className="chat-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? 'Close contact form' : 'Open contact form'}>
-        <MessageIcon />
+      <button ref={buttonRef} type="button" className="chat-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="contact-panel" aria-label={open ? 'Close contact form' : 'Open contact form'}>
+        <MessageIcon open={open} />
+        <span>{open ? 'Close' : 'Message'}</span>
       </button>
     </div>
   )

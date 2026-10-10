@@ -1,30 +1,44 @@
-import About from './components/About'
-import BackgroundBlobs from './components/BackgroundBlobs'
-import Contact from './components/Contact'
-import Education from './components/Education'
-import Footer from './components/Footer'
-import Hero from './components/Hero'
+import { Suspense, lazy, useMemo } from 'react'
 import Navbar from './components/Navbar'
-import Projects from './components/Projects'
-import Skills from './components/Skills'
+import Footer from './components/Footer'
+import ChatWidget from './components/ChatWidget'
 import { ThemeProvider } from './hooks/useTheme'
+import { useRouteNavigation } from './hooks/useRouteNavigation'
+
+const HomePage = lazy(() => import('./pages/HomePage'))
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
+
+function AppShell({ page }) {
+  const currentPage = useMemo(() => {
+    if (page === 'privacy') return <PrivacyPage />
+    if (page === '404') return <NotFoundPage />
+    return <HomePage />
+  }, [page])
+
+  return (
+    <>
+      <Navbar />
+      <main className="site-shell">{currentPage}</main>
+      <Footer />
+      <ChatWidget />
+    </>
+  )
+}
 
 export default function App() {
+  const { location } = useRouteNavigation()
+  const page = useMemo(() => {
+    if (location.pathname === '/privacy') return 'privacy'
+    if (location.pathname === '/404') return '404'
+    return 'home'
+  }, [location.pathname])
+
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen">
-        <BackgroundBlobs />
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Education />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <Suspense fallback={<div className="loading-shell" /> }>
+        <AppShell page={page} />
+      </Suspense>
     </ThemeProvider>
   )
 }

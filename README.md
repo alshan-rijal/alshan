@@ -59,7 +59,7 @@ Until you do, the form shows a friendly "not configured" message instead of fail
 
 ### Icons
 
-Technology and UI icons are registered by key in `src/lib/icons.jsx` (backed by `react-icons`). Add or swap an icon there, then reference the key from JSON.
+Brand and favicon assets are generated from `public/favicon.png` and `public/brand/logo.png` with `npm run generate-assets`. The generated files are copied by Vite from `public/` and are never referenced from `dist/`.
 
 ### Page metadata
 

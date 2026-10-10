@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 
 /** Tracks which section id is currently in view for the navbar. */
-export function useScrollSpy(ids, offset = 160) {
+export function useScrollSpy(ids, offset = 160, enabled = true) {
   const [activeId, setActiveId] = useState(ids[0])
 
   useEffect(() => {
+    if (!enabled) {
+      setActiveId(null)
+      return undefined
+    }
+
     const onScroll = () => {
       const probe = window.scrollY + offset
       let current = ids[0]
@@ -28,7 +33,7 @@ export function useScrollSpy(ids, offset = 160) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [ids, offset])
+  }, [ids, offset, enabled])
 
   return activeId
 }

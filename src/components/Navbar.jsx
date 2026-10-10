@@ -1,8 +1,41 @@
 import { useState } from 'react'
-import { FiMoon, FiMenu, FiSun, FiX } from 'react-icons/fi'
-import profile from '../data/profile.json'
+import BrandLogo from './BrandLogo'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { useTheme } from '../hooks/useTheme'
+import { useRouteNavigation } from '../hooks/useRouteNavigation'
+
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M20 15.5A7.5 7.5 0 0 1 8.5 4a7.5 7.5 0 1 0 11.5 11.5Z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function MenuIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M3 7h18M3 12h18M3 17h18" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+    </svg>
+  )
+}
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -15,59 +48,49 @@ const NAV_ITEMS = [
 
 const NAV_IDS = NAV_ITEMS.map((item) => item.id)
 
-const initials = profile.name
-  .split(' ')
-  .map((part) => part[0])
-  .join('')
-
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const activeId = useScrollSpy(NAV_IDS)
+  const { location, navigate } = useRouteNavigation()
+  const activeId = useScrollSpy(NAV_IDS, 160, location.pathname === '/')
   const { theme, toggleTheme } = useTheme()
+  const homeRoute = (id) => (id === 'home' ? '/' : `/#${id}`)
+  const handleNavigation = (event, id) => {
+    event.preventDefault()
+    setOpen(false)
+    navigate(homeRoute(id))
+  }
 
   const linkClasses = (id) =>
-    `rounded-full px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
-      activeId === id
-        ? 'bg-clay-recess text-clay-accent shadow-clayPressedSoft'
-        : 'text-clay-muted hover:-translate-y-0.5 hover:bg-clay-surface/80 hover:text-clay-text'
-    }`
+    `nav-item${activeId === id ? ' active' : ''}`
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-clay-card border border-clay-border/70 bg-clay-surface/70 px-4 shadow-clayNav backdrop-blur-xl sm:px-6">
-        <a href="#home" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="font-display flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-clay-accent-soft to-clay-accent text-sm font-black text-white shadow-clayChip">
-            {initials}
-          </span>
-          <span className="font-display text-lg font-extrabold tracking-tight text-clay-text">
-            {profile.name}
-          </span>
+    <header className="site-header">
+      <nav className="container nav-inner" aria-label="Main navigation">
+        <a href="/" className="logo" aria-label="Alshan Rijal home" onClick={(event) => handleNavigation(event, 'home')}>
+          <BrandLogo />
         </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="nav-links" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
-              <a href={`#${item.id}`} className={linkClasses(item.id)}>
+              <a href={homeRoute(item.id)} className={linkClasses(item.id)} onClick={(event) => handleNavigation(event, item.id)}>
                 {item.label}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="nav-actions">
           <button
             type="button"
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className="flex h-11 w-11 items-center justify-center rounded-clay-btn bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed"
+            className="theme-button"
           >
-            {theme === 'dark' ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          <a
-            href="#contact"
-            className="font-display hidden h-11 items-center justify-center rounded-clay-btn bg-linear-to-r from-clay-accent-soft to-clay-accent px-5 text-sm font-extrabold text-white shadow-clayButton transition-all duration-200 hover:-translate-y-1 hover:shadow-clayButtonHover active:scale-[0.92] active:shadow-clayPressed sm:inline-flex"
-          >
+          <a href="/#contact" className="button primary nav-cta" onClick={(event) => handleNavigation(event, 'contact')}>
             Let&apos;s talk
           </a>
 
@@ -76,26 +99,22 @@ export default function Navbar() {
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="flex h-11 w-11 items-center justify-center rounded-clay-btn bg-clay-surface/80 text-xl text-clay-accent shadow-clayChip transition-all duration-200 hover:-translate-y-0.5 hover:shadow-clayChipHover active:scale-90 active:shadow-clayPressed lg:hidden"
+            className="theme-button nav-toggle"
           >
-            {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+            {open ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
       </nav>
 
       {open && (
-        <div className="mx-auto mt-3 max-w-6xl rounded-clay-pill border border-clay-border/70 bg-clay-surface/80 p-3 shadow-clayNav backdrop-blur-xl lg:hidden">
-          <ul className="flex flex-col gap-1">
+        <div className="mobile-menu container" aria-label="Mobile navigation">
+          <ul>
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
                 <a
-                  href={`#${item.id}`}
-                  onClick={() => setOpen(false)}
-                  className={`block rounded-[16px] px-4 py-3 text-sm font-bold transition-colors duration-200 ${
-                    activeId === item.id
-                      ? 'bg-clay-recess text-clay-accent shadow-clayPressedSoft'
-                      : 'text-clay-muted hover:bg-clay-surface/80 hover:text-clay-text'
-                  }`}
+                  href={homeRoute(item.id)}
+                  onClick={(event) => handleNavigation(event, item.id)}
+                  className={activeId === item.id ? 'mobile-link active' : 'mobile-link'}
                 >
                   {item.label}
                 </a>

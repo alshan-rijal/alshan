@@ -36,7 +36,7 @@ const prepareFavicon = async (source) => {
   const metadata = await sharp(buffer).metadata()
   const canvas = Math.max(metadata.width, metadata.height)
   const inner = Math.round(canvas / 1.16)
-  const mark = await sharp(buffer).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
+  const mark = await sharp(buffer).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
   return sharp({
     create: { width: canvas, height: canvas, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
   }).composite([{ input: mark, gravity: 'centre' }]).png().toBuffer()
@@ -56,7 +56,7 @@ const recolorFavicon = async (source, color) => {
 
 const tile = async (source, target, size, background) => {
   const inner = Math.round(size * 0.76)
-  const resized = await sharp(source).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
+  const resized = await sharp(source).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
   await sharp({
     create: { width: size, height: size, channels: 4, background },
   })
@@ -66,15 +66,15 @@ const tile = async (source, target, size, background) => {
 }
 
 const preparedFavicon = await prepareFavicon(faviconSource)
-await writeFile(faviconSource, preparedFavicon)
 const lightFavicon = preparedFavicon
 const darkFavicon = await recolorFavicon(preparedFavicon, '#F4F4F2')
 const fallbackTile = async (source, target, size) => {
   const inner = Math.round(size * 0.84)
-  const mark = await sharp(source).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
-  const radius = Math.round(size * 0.18)
-  const background = Buffer.from(`<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="#F4F4F2"/></svg>`)
-  await sharp(background).composite([{ input: mark, gravity: 'centre' }]).png({ compressionLevel: 9, palette: true }).toFile(target)
+  const mark = await sharp(source).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
+  const background = sharp({
+    create: { width: size, height: size, channels: 4, background: '#F4F4F2' },
+  })
+  await background.composite([{ input: mark, gravity: 'centre' }]).png({ compressionLevel: 9, palette: true }).toFile(target)
 }
 for (const size of [32, 48]) {
   await sharp(lightFavicon).resize(size, size, { fit: 'contain' }).png({ compressionLevel: 9, palette: true }).toFile(join(publicDir, `favicon-light-${size}.png`))

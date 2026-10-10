@@ -3,10 +3,10 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
 import ScrollProgress from './components/ScrollProgress'
+import HomePage from './pages/HomePage'
 import { ThemeProvider } from './hooks/useTheme'
 import { useRouteNavigation } from './hooks/useRouteNavigation'
 
-const HomePage = lazy(() => import('./pages/HomePage'))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 

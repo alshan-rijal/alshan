@@ -6,10 +6,7 @@ import education from '../data/education.json'
 import ProjectList from '../components/ProjectList'
 import SocialLinks from '../components/SocialLinks'
 import ToolsIndex from '../components/ToolsIndex'
-
-function SectionKicker({ label }) {
-  return <p className="section-kicker">{label}</p>
-}
+import { OutlineLogo } from '../components/OutlineLogo'
 
 export default function HomePage() {
   const projectRows = useMemo(() => projects, [])
@@ -42,16 +39,18 @@ export default function HomePage() {
           </div>
 
           <aside className="hero-panel" aria-label="Profile details">
-            <div className="hero-panel-visual">
-              <picture>
-                <source srcSet="/images/avatar.webp" type="image/webp" />
-                <img src="/images/avatar.jpeg" alt="Alshan Rijal" width="720" height="1280" fetchPriority="high" />
-              </picture>
+            <div className="hero-panel-header">
+              <span>Profile</span>
+              <OutlineLogo size={20} />
             </div>
             <div className="ledger">
             <div className="ledger-row">
+              <span>Role</span>
+              <strong>MERN and Python</strong>
+            </div>
+            <div className="ledger-row">
               <span>Focus</span>
-              <strong>AI/ML and cloud</strong>
+              <strong>Cloud</strong>
             </div>
             <div className="ledger-row">
               <span>Stack</span>
@@ -61,10 +60,6 @@ export default function HomePage() {
               <span>Based in</span>
               <strong>Itahari, Nepal</strong>
             </div>
-            <div className="ledger-row">
-              <span>Building</span>
-              <strong>NOVA, an AI assistant model</strong>
-            </div>
             </div>
           </aside>
         </div>
@@ -73,11 +68,13 @@ export default function HomePage() {
       <section id="about" className="section-block section-alt">
         <div className="container">
           <div className="section-heading">
-            <SectionKicker label="About" />
             <h2>Soft edges, <span className="accent-word">sharp</span> thinking.</h2>
           </div>
 
-          <div className="two-column editorial">
+          <div className="about-layout">
+            <div className="about-portrait">
+              <img src="/images/avatar.webp" alt="Alshan Rijal" width="720" height="1280" loading="lazy" />
+            </div>
             <div className="facts-box">
               <ul>
                 <li>
@@ -109,7 +106,6 @@ export default function HomePage() {
       <section id="skills" className="section-block section-alt">
         <div className="container">
           <div className="section-heading">
-            <SectionKicker label="Skills" />
             <h2>Tools I <span className="accent-word">shape</span> products with.</h2>
           </div>
 
@@ -120,7 +116,6 @@ export default function HomePage() {
       <section id="projects" className="section-block">
         <div className="container">
           <div className="section-heading">
-            <SectionKicker label="Projects" />
             <h2>Selected <span className="accent-word">work</span>.</h2>
           </div>
 
@@ -131,7 +126,6 @@ export default function HomePage() {
       <section id="education" className="section-block">
         <div className="container">
           <div className="section-heading">
-            <SectionKicker label="Education" />
             <h2>Where I learned.</h2>
           </div>
 
@@ -153,7 +147,6 @@ export default function HomePage() {
       <section id="contact" className="section-block contact-section">
         <div className="container contact-wrap">
           <div className="contact-intro">
-            <SectionKicker label="Contact" />
             <h2>Let’s build something <span className="accent-word">useful</span>.</h2>
             <a href={`mailto:${profile.contact.email}`} className="email-link">
               {profile.contact.email}

@@ -52,6 +52,8 @@ export function ThemeProvider({ children }) {
 
   const toggleTheme = (source) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+    metaThemeColor?.setAttribute('content', nextTheme === 'dark' ? '#0B0B0B' : '#F7F7F5')
     try {
       window.localStorage.setItem(STORAGE_KEY, nextTheme)
     } catch {
@@ -73,7 +75,7 @@ export function ThemeProvider({ children }) {
 
     document.documentElement.classList.add('theme-transition')
     update()
-    window.setTimeout(() => document.documentElement.classList.remove('theme-transition'), reduceMotion ? 0 : 350)
+    window.setTimeout(() => document.documentElement.classList.remove('theme-transition'), reduceMotion ? 0 : 550)
   }
 
   return createElement(ThemeContext.Provider, { value: { theme, toggleTheme } }, children)

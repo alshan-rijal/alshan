@@ -1,11 +1,69 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Syne';
+  src: url('/fonts/syne-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Syne';
+  src: url('/fonts/syne-800.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #f7f7f5;
   --bg-2: #efefec;
   --surface: #ffffff;
+  --surface-2: #e8e8e4;
   --line: rgba(0,0,0,0.12);
+  --line-strong: rgba(0,0,0,0.24);
   --text: #0b0b0b;
-  --muted: #66665f;
-  --accent: #007a70;
+  --muted: #5e5e58;
+  --accent: #4d6b00;
   --on-accent: #ffffff;
   --invert-bg: #0b0b0b;
   --invert-tx: #f4f4f2;
@@ -14,12 +72,14 @@
 
 :root[data-theme='dark'] {
   --bg: #0b0b0b;
-  --bg-2: #141414;
-  --surface: #1a1a1a;
+  --bg-2: #111111;
+  --surface: #161616;
+  --surface-2: #1c1c1c;
   --line: rgba(255,255,255,0.12);
+  --line-strong: rgba(255,255,255,0.22);
   --text: #f4f4f2;
-  --muted: #8f8f89;
-  --accent: #12d6c4;
+  --muted: #9a9a94;
+  --accent: #c6f432;
   --on-accent: #0b0b0b;
   --invert-bg: #f4f4f2;
   --invert-tx: #0b0b0b;
@@ -28,12 +88,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --bg: #0b0b0b;
-    --bg-2: #141414;
-    --surface: #1a1a1a;
+    --bg-2: #111111;
+    --surface: #161616;
+    --surface-2: #1c1c1c;
     --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
     --text: #f4f4f2;
-    --muted: #8f8f89;
-    --accent: #12d6c4;
+    --muted: #9a9a94;
+    --accent: #c6f432;
     --on-accent: #0b0b0b;
     --invert-bg: #f4f4f2;
     --invert-tx: #0b0b0b;
@@ -132,9 +194,10 @@ header {
 }
 
 .brand-wordmark {
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -269,11 +332,12 @@ header {
   flex-direction: column;
   margin: 0;
   font-size: clamp(3.2rem, 8vw, 9.5rem);
+  font-family: 'Syne', sans-serif;
   line-height: 0.9;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
 }
 
-.title-plain { font-weight: 700; }
+.title-plain { font-weight: 800; }
 .title-outline {
   display: inline-block;
   color: transparent;

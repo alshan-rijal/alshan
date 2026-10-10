@@ -9,11 +9,7 @@ const root = join(fileURLToPath(new URL('.', import.meta.url)), '..')
 const requiredSections = ['home', 'about', 'skills', 'projects', 'education', 'contact']
 const requiredSnippets = ['KamKhoj', 'TensorFlow', 'Download CV', 'Send']
 const requiredAssets = [
-  'public/favicon.png',
-  'public/favicon-light-32.png',
-  'public/favicon-light-48.png',
-  'public/favicon-dark-32.png',
-  'public/favicon-dark-48.png',
+  'public/mainfav.png',
   'public/brand/logo.png',
   'public/site.webmanifest',
 ]
@@ -70,6 +66,12 @@ try {
   }
   if (html.includes('NOVA') || html.includes('section-kicker')) {
     throw new Error('Hero or section kicker content remains.')
+  }
+  if (!html.includes('<h2>Skills</h2>') || !html.includes('<h3>Tools I <span class="accent-word">shape</span><br/>products with</h3>')) {
+    throw new Error('Skills headings are incomplete.')
+  }
+  if (!html.includes('<h2>Education</h2>')) {
+    throw new Error('Education heading is missing.')
   }
   if (!html.includes('Role') || !html.includes('MERN and Python') || !html.includes('Cloud') || !html.includes('Based in') || !html.includes('Itahari, Nepal')) {
     throw new Error('Hero profile card rows are incomplete.')

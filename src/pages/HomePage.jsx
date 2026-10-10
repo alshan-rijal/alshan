@@ -7,6 +7,7 @@ import ProjectList from '../components/ProjectList'
 import SocialLinks from '../components/SocialLinks'
 import ToolsIndex from '../components/ToolsIndex'
 import { OutlineLogo } from '../components/OutlineLogo'
+import Portrait from '../components/Portrait'
 
 export default function HomePage() {
   const projectRows = useMemo(() => projects, [])
@@ -72,27 +73,27 @@ export default function HomePage() {
           </div>
 
           <div className="about-layout">
-            <div className="about-portrait">
-              <img src="/images/avatar.webp" alt="Alshan Rijal" width="720" height="1280" loading="lazy" />
-            </div>
-            <div className="facts-box">
-              <ul>
-                <li>
-                  <span>Role</span>
-                  <strong>{profile.role}</strong>
-                </li>
-                <li>
-                  <span>Location</span>
-                  <strong>{profile.location}</strong>
-                </li>
-                <li>
-                  <span>Email</span>
-                  <strong>{profile.contact.email}</strong>
-                </li>
-              </ul>
-            </div>
-            <div className="editorial-copy">
-              <p>{profile.bio}</p>
+            <Portrait className="about-portrait" />
+            <div className="about-content">
+              <div className="editorial-copy">
+                <p>{profile.bio}</p>
+              </div>
+              <div className="facts-box">
+                <ul>
+                  <li>
+                    <span>Role</span>
+                    <strong>{profile.role}</strong>
+                  </li>
+                  <li>
+                    <span>Location</span>
+                    <strong>{profile.location}</strong>
+                  </li>
+                  <li>
+                    <span>Email</span>
+                    <strong>{profile.contact.email}</strong>
+                  </li>
+                </ul>
+              </div>
               <div className="focus-tags">
                 {profile.focusAreas.map((area) => (
                   <span key={area.label}>{area.label}</span>
@@ -106,7 +107,7 @@ export default function HomePage() {
       <section id="skills" className="section-block section-alt">
         <div className="container">
           <div className="section-heading">
-            <h2>Tools I <span className="accent-word">shape</span> products with.</h2>
+            <h2>Skills</h2>
           </div>
 
           <ToolsIndex />
@@ -126,7 +127,7 @@ export default function HomePage() {
       <section id="education" className="section-block">
         <div className="container">
           <div className="section-heading">
-            <h2>Where I learned.</h2>
+            <h2>Education</h2>
           </div>
 
           <ol className="timeline">

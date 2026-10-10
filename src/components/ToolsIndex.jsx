@@ -29,7 +29,7 @@ export default function ToolsIndex() {
             <h3>{group.category}</h3>
             <ul className="tool-items">
               {group.items.map((item, itemIndex) => (
-                <li key={item.name} style={{ '--tool-delay': `${(groupIndex * 6 + itemIndex) * 40}ms` }}>
+                <li key={item.name} style={{ '--tool-delay': `${(groupIndex * 6 + itemIndex) * 40}ms`, '--tool-light': item.brand.light, '--tool-dark': item.brand.dark }}>
                   <span tabIndex="0" className="tool-item">
                     <ToolIcon iconKey={item.iconKey} />
                     <span>{item.name}</span>

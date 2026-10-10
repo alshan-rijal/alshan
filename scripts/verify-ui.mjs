@@ -12,6 +12,7 @@ const paths = [
 ]
 const file = paths.map((path) => readFileSync(path, 'utf8')).join('\n')
 const html = readFileSync(join(root, 'index.html'), 'utf8')
+const faviconLinks = [...html.matchAll(/<link[^>]+(?:rel="icon"|rel="apple-touch-icon")[^>]*>/g)].map(([link]) => link)
 const banned = [
   'linear-gradient',
   'box-shadow',
@@ -31,16 +32,7 @@ const banned = [
 
 const violations = banned.filter((token) => file.includes(token) || html.includes(token))
 const expectedPublic = [
-  'public/favicon.png',
-  'public/favicon-light-32.png',
-  'public/favicon-light-48.png',
-  'public/favicon-dark-32.png',
-  'public/favicon-dark-48.png',
-  'public/favicon-32.png',
-  'public/favicon-48.png',
-  'public/apple-touch-icon.png',
-  'public/icon-192.png',
-  'public/icon-512.png',
+  'public/mainfav.png',
   'public/site.webmanifest',
   'public/brand/logo.png',
   'public/fonts/poppins-400.woff2',
@@ -49,31 +41,25 @@ const expectedPublic = [
   'public/fonts/syne-800.woff2',
 ]
 const expectedDist = [
-  'dist/favicon-32.png',
-  'dist/favicon-48.png',
-  'dist/favicon-light-32.png',
-  'dist/favicon-light-48.png',
-  'dist/favicon-dark-32.png',
-  'dist/favicon-dark-48.png',
-  'dist/apple-touch-icon.png',
-  'dist/icon-192.png',
-  'dist/icon-512.png',
+  'dist/mainfav.png',
   'dist/site.webmanifest',
   'dist/brand/logo.png',
 ]
 const missingAssets = expectedPublic.filter((path) => !existsSync(join(root, path)))
 const missingDistAssets = expectedDist.filter((path) => !existsSync(join(root, path)))
-const oldFiles = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'logo.svg']
+const oldFiles = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'logo.svg', 'favicon.png', 'favicon-light-32.png', 'favicon-light-48.png', 'favicon-dark-32.png', 'favicon-dark-48.png', 'favicon-32.png', 'favicon-48.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png']
 const staleAssets = oldFiles.filter((name) => existsSync(join(root, 'public', name)))
 const sourceFiles = paths.filter((path) => path.includes(`${join(root, 'src')}${process.platform === 'win32' ? '\\' : '/'}`))
 const sourceHasDist = sourceFiles.some((path) => readFileSync(path, 'utf8').includes('dist/'))
+const invalidFaviconLinks = faviconLinks.filter((link) => !link.includes('/mainfav.png?v=6'))
 
-if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist) {
+if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length) {
   if (violations.length) console.error('Banned token matches found:', violations)
   if (missingAssets.length) console.error('Missing public assets:', missingAssets)
   if (missingDistAssets.length) console.error('Missing built assets:', missingDistAssets)
   if (staleAssets.length) console.error('Old public assets remain:', staleAssets)
   if (sourceHasDist) console.error('Source references dist/.')
+  if (faviconLinks.length !== 2 || invalidFaviconLinks.length) console.error('Favicon links must contain only mainfav.png?v=6.')
   process.exit(1)
 }
 
@@ -93,9 +79,7 @@ const required = [
   'tools-layout',
   'Message',
   'project-preview',
-  'favicon-light-32.png?v=5',
-  'favicon-dark-32.png?v=5',
-  'favicon-32.png?v=5',
+  'mainfav.png?v=6',
 ]
 
 const missing = required.filter((token) => !(file.includes(token) || html.includes(token)))

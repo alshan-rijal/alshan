@@ -5,7 +5,6 @@ import sharp from 'sharp'
 
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '..')
 const publicDir = join(root, 'public')
-const faviconSource = join(publicDir, 'favicon.png')
 const logoSource = join(publicDir, 'brand', 'logo.png')
 const light = '#F7F7F5'
 const dark = '#0B0B0B'
@@ -28,61 +27,6 @@ const writeAsset = async (source, target, width, options = {}) => {
   } else {
     await image.png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(target)
   }
-}
-
-const prepareFavicon = async (source) => {
-  const trimmed = sharp(source).trim()
-  const buffer = await trimmed.png().toBuffer()
-  const metadata = await sharp(buffer).metadata()
-  const canvas = Math.max(metadata.width, metadata.height)
-  const inner = Math.round(canvas / 1.16)
-  const mark = await sharp(buffer).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
-  return sharp({
-    create: { width: canvas, height: canvas, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
-  }).composite([{ input: mark, gravity: 'centre' }]).png().toBuffer()
-}
-
-const recolorFavicon = async (source, color) => {
-  const { data, info } = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
-  const rgb = [Number.parseInt(color.slice(1, 3), 16), Number.parseInt(color.slice(3, 5), 16), Number.parseInt(color.slice(5, 7), 16)]
-  for (let index = 0; index < data.length; index += 4) {
-    if (data[index + 3] === 0) continue
-    data[index] = rgb[0]
-    data[index + 1] = rgb[1]
-    data[index + 2] = rgb[2]
-  }
-  return sharp(data, { raw: info }).png().toBuffer()
-}
-
-const tile = async (source, target, size, background) => {
-  const inner = Math.round(size * 0.76)
-  const resized = await sharp(source).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
-  await sharp({
-    create: { width: size, height: size, channels: 4, background },
-  })
-    .composite([{ input: resized, gravity: 'centre' }])
-    .png({ compressionLevel: 9, palette: true, quality: 90 })
-    .toFile(target)
-}
-
-const preparedFavicon = await prepareFavicon(faviconSource)
-const lightFavicon = preparedFavicon
-const darkFavicon = await recolorFavicon(preparedFavicon, '#F4F4F2')
-const fallbackTile = async (source, target, size) => {
-  const inner = Math.round(size * 0.84)
-  const mark = await sharp(source).resize(inner, inner, { fit: 'contain', kernel: sharp.kernel.lanczos3 }).png().toBuffer()
-  const background = sharp({
-    create: { width: size, height: size, channels: 4, background: '#F4F4F2' },
-  })
-  await background.composite([{ input: mark, gravity: 'centre' }]).png({ compressionLevel: 9, palette: true }).toFile(target)
-}
-for (const size of [32, 48]) {
-  await sharp(lightFavicon).resize(size, size, { fit: 'contain' }).png({ compressionLevel: 9, palette: true }).toFile(join(publicDir, `favicon-light-${size}.png`))
-  await sharp(darkFavicon).resize(size, size, { fit: 'contain' }).png({ compressionLevel: 9, palette: true }).toFile(join(publicDir, `favicon-dark-${size}.png`))
-  await fallbackTile(lightFavicon, join(publicDir, `favicon-${size}.png`), size)
-}
-for (const [size, name] of [[180, 'apple-touch-icon.png'], [192, 'icon-192.png'], [512, 'icon-512.png']]) {
-  await tile(lightFavicon, join(publicDir, name), size, light)
 }
 
 const logoMetadata = await sharp(logoSource).metadata()
@@ -129,9 +73,8 @@ await writeFile(join(publicDir, 'site.webmanifest'), JSON.stringify({
   theme_color: dark,
   background_color: dark,
   icons: [
-    { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-    { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    { src: '/mainfav.png', sizes: '1254x1254', type: 'image/png' },
   ],
 }, null, 2) + '\n')
 
-console.log('Generated favicon, app icons, responsive logo assets, manifest and social preview.')
+console.log('Generated responsive logo assets, manifest and social preview.')

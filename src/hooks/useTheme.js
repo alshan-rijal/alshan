@@ -59,16 +59,15 @@ export function ThemeProvider({ children }) {
     }
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const transition = document.startViewTransition
     const update = () => setTheme(nextTheme)
 
-    if (transition && !reduceMotion) {
+    if (typeof document.startViewTransition === 'function' && !reduceMotion) {
       const rect = source?.currentTarget?.getBoundingClientRect()
       const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2
       const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2
       document.documentElement.style.setProperty('--theme-x', `${x}px`)
       document.documentElement.style.setProperty('--theme-y', `${y}px`)
-      transition(update)
+      document.startViewTransition(update)
       return
     }
 

@@ -1100,6 +1100,17 @@ header {
   .about-portrait { grid-row: span 2; }
 }
 
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding-block: 24px;
+  }
+
+  .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
+  .summary { margin-top: 16px; }
+  .hero-actions { margin-top: 16px; }
+}
+
 @media (hover: none), (pointer: coarse) {
   .project-row:hover { background: transparent; color: var(--text); padding-inline: 0; }
   .project-row:hover .project-meta p,

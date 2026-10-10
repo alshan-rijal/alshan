@@ -8,6 +8,7 @@ import SocialLinks from '../components/SocialLinks'
 import ToolsIndex from '../components/ToolsIndex'
 import { OutlineLogo } from '../components/OutlineLogo'
 import Portrait from '../components/Portrait'
+import TechMarquee from '../components/TechMarquee'
 
 export default function HomePage() {
   const projectRows = useMemo(() => projects, [])
@@ -42,7 +43,7 @@ export default function HomePage() {
           <aside className="hero-panel" aria-label="Profile details">
             <div className="hero-panel-header">
               <span>Profile</span>
-              <OutlineLogo size={20} />
+              <OutlineLogo size={20} className="outline-logo" />
             </div>
             <div className="ledger">
             <div className="ledger-row">
@@ -110,6 +111,7 @@ export default function HomePage() {
             <h2>Skills</h2>
           </div>
 
+          <TechMarquee />
           <ToolsIndex />
         </div>
       </section>

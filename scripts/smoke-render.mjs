@@ -68,6 +68,12 @@ try {
   if (html.includes('Open to work') || html.includes('stats-strip')) {
     throw new Error('Removed availability or stats UI remains.')
   }
+  if (html.includes('NOVA') || html.includes('section-kicker')) {
+    throw new Error('Hero or section kicker content remains.')
+  }
+  if (!html.includes('Role') || !html.includes('MERN and Python') || !html.includes('Cloud') || !html.includes('Based in') || !html.includes('Itahari, Nepal')) {
+    throw new Error('Hero profile card rows are incomplete.')
+  }
 
   console.log(`Smoke render OK - ${html.length} chars, all sections, data and logo references present.`)
 } finally {

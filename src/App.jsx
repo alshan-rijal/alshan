@@ -2,6 +2,7 @@ import { Suspense, lazy, useMemo } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
+import ScrollProgress from './components/ScrollProgress'
 import { ThemeProvider } from './hooks/useTheme'
 import { useRouteNavigation } from './hooks/useRouteNavigation'
 
@@ -18,6 +19,7 @@ function AppShell({ page }) {
 
   return (
     <>
+      <ScrollProgress />
       <Navbar />
       <main className="site-shell">{currentPage}</main>
       <Footer />

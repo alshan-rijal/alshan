@@ -2,6 +2,7 @@ import { createContext, createElement, useContext, useEffect, useState } from 'r
 
 const STORAGE_KEY = 'portfolio-theme'
 const THEME_EASE = 'cubic-bezier(.4,0,.2,1)'
+const SWEEP = 'bottom-to-top'
 const ThemeContext = createContext(null)
 
 const getSystemTheme = () =>
@@ -54,7 +55,8 @@ export function ThemeProvider({ children }) {
   const toggleTheme = (source) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
     const root = document.documentElement
-    const duration = Number.parseFloat(getComputedStyle(root).getPropertyValue('--theme-duration')) || 500
+    const durationValue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--theme-duration'))
+    const duration = Number.isNaN(durationValue) ? 500 : durationValue
     const metaThemeColor = document.querySelector('meta[name="theme-color"]')
     metaThemeColor?.setAttribute('content', nextTheme === 'dark' ? '#0B0B0B' : '#F7F7F5')
     try {
@@ -67,17 +69,13 @@ export function ThemeProvider({ children }) {
     const update = () => setTheme(nextTheme)
 
     if (typeof document.startViewTransition === 'function' && !reduceMotion) {
-      const rect = source?.currentTarget?.getBoundingClientRect()
-      const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2
-      const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2
       const transition = document.startViewTransition(update)
       transition.ready.then(() => {
-        const radius = Math.hypot(
-          Math.max(x, window.innerWidth - x),
-          Math.max(y, window.innerHeight - y),
-        )
-        root.animate(
-          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        const clipPath = SWEEP === 'bottom-to-top'
+          ? ['inset(100% 0 0 0)', 'inset(0 0 0 0)']
+          : ['inset(0 0 100% 0)', 'inset(0 0 0 0)']
+        document.documentElement.animate(
+          { clipPath },
           { duration, easing: THEME_EASE, pseudoElement: '::view-transition-new(root)' },
         )
       }).catch((error) => {
@@ -88,7 +86,7 @@ export function ThemeProvider({ children }) {
 
     root.classList.add('theme-changing')
     update()
-    window.setTimeout(() => root.classList.remove('theme-changing'), duration + 80)
+    window.setTimeout(() => root.classList.remove('theme-changing'), duration + 50)
   }
 
   return createElement(ThemeContext.Provider, { value: { theme, toggleTheme } }, children)

@@ -52,14 +52,21 @@ const staleAssets = oldFiles.filter((name) => existsSync(join(root, 'public', na
 const sourceFiles = paths.filter((path) => path.includes(`${join(root, 'src')}${process.platform === 'win32' ? '\\' : '/'}`))
 const sourceHasDist = sourceFiles.some((path) => readFileSync(path, 'utf8').includes('dist/'))
 const invalidFaviconLinks = faviconLinks.filter((link) => !link.includes('/mainfav.png?v=6'))
+const navDotPattern = /\.nav-(?:links|menu)[^{]*\{[^}]*content:\s*['"][^'"]+['"]/s
+const sourceHasNavDots = navDotPattern.test(file) || /[•·]|&bull;/.test(file)
+const hasNavListReset = /\.nav-links\s*\{[^}]*list-style:\s*none/s.test(file)
+const hasThemeDuration = /--theme-duration:\s*500ms/.test(file)
 
-if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length) {
+if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length || sourceHasNavDots || !hasNavListReset || !hasThemeDuration) {
   if (violations.length) console.error('Banned token matches found:', violations)
   if (missingAssets.length) console.error('Missing public assets:', missingAssets)
   if (missingDistAssets.length) console.error('Missing built assets:', missingDistAssets)
   if (staleAssets.length) console.error('Old public assets remain:', staleAssets)
   if (sourceHasDist) console.error('Source references dist/.')
   if (faviconLinks.length !== 2 || invalidFaviconLinks.length) console.error('Favicon links must contain only mainfav.png?v=6.')
+  if (sourceHasNavDots) console.error('Navigation contains a bullet or generated dot.')
+  if (!hasNavListReset) console.error('Desktop navigation list must have list-style: none.')
+  if (!hasThemeDuration) console.error('Theme duration must be 500ms.')
   process.exit(1)
 }
 

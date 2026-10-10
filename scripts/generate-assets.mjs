@@ -30,6 +30,30 @@ const writeAsset = async (source, target, width, options = {}) => {
   }
 }
 
+const prepareFavicon = async (source) => {
+  const trimmed = sharp(source).trim()
+  const buffer = await trimmed.png().toBuffer()
+  const metadata = await sharp(buffer).metadata()
+  const canvas = Math.max(metadata.width, metadata.height)
+  const inner = Math.round(canvas / 1.16)
+  const mark = await sharp(buffer).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
+  return sharp({
+    create: { width: canvas, height: canvas, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  }).composite([{ input: mark, gravity: 'centre' }]).png().toBuffer()
+}
+
+const recolorFavicon = async (source, color) => {
+  const { data, info } = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const rgb = [Number.parseInt(color.slice(1, 3), 16), Number.parseInt(color.slice(3, 5), 16), Number.parseInt(color.slice(5, 7), 16)]
+  for (let index = 0; index < data.length; index += 4) {
+    if (data[index + 3] === 0) continue
+    data[index] = rgb[0]
+    data[index + 1] = rgb[1]
+    data[index + 2] = rgb[2]
+  }
+  return sharp(data, { raw: info }).png().toBuffer()
+}
+
 const transparentIcon = async (source, target, size) => {
   await sharp(source)
     .resize(size, size, { fit: 'contain' })
@@ -48,10 +72,24 @@ const tile = async (source, target, size, background) => {
     .toFile(target)
 }
 
-await transparentIcon(faviconSource, join(publicDir, 'favicon-32.png'), 32)
-await transparentIcon(faviconSource, join(publicDir, 'favicon-48.png'), 48)
+const preparedFavicon = await prepareFavicon(faviconSource)
+await writeFile(faviconSource, preparedFavicon)
+const lightFavicon = preparedFavicon
+const darkFavicon = await recolorFavicon(preparedFavicon, '#F4F4F2')
+const fallbackTile = async (source, target, size) => {
+  const inner = Math.round(size * 0.84)
+  const mark = await sharp(source).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
+  const radius = Math.round(size * 0.18)
+  const background = Buffer.from(`<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="#F4F4F2"/></svg>`)
+  await sharp(background).composite([{ input: mark, gravity: 'centre' }]).png({ compressionLevel: 9, palette: true }).toFile(target)
+}
+for (const size of [32, 48]) {
+  await sharp(lightFavicon).resize(size, size, { fit: 'contain' }).png({ compressionLevel: 9, palette: true }).toFile(join(publicDir, `favicon-light-${size}.png`))
+  await sharp(darkFavicon).resize(size, size, { fit: 'contain' }).png({ compressionLevel: 9, palette: true }).toFile(join(publicDir, `favicon-dark-${size}.png`))
+  await fallbackTile(lightFavicon, join(publicDir, `favicon-${size}.png`), size)
+}
 for (const [size, name] of [[180, 'apple-touch-icon.png'], [192, 'icon-192.png'], [512, 'icon-512.png']]) {
-  await tile(faviconSource, join(publicDir, name), size, light)
+  await tile(lightFavicon, join(publicDir, name), size, light)
 }
 
 const logoMetadata = await sharp(logoSource).metadata()

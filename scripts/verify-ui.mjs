@@ -93,6 +93,9 @@ const required = [
   'tools-layout',
   'Message',
   'project-preview',
+  'favicon-light-32.png?v=5',
+  'favicon-dark-32.png?v=5',
+  'favicon-32.png?v=5',
 ]
 
 const missing = required.filter((token) => !(file.includes(token) || html.includes(token)))

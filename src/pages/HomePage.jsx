@@ -143,17 +143,23 @@ export default function HomePage() {
             <h2>Tools I <span className="accent-word">shape</span> products with.</h2>
           </div>
 
-          <div className="skills-grid">
+          <div className="tools-layout">
+            <div className="tools-intro">
+              <h3>Tools I <span className="accent-word">shape</span><br />products with</h3>
+              <p>The languages, frameworks and cloud services I use day to day.</p>
+            </div>
+            <div className="tools-list">
             {techStack.map((group) => (
-              <div key={group.category} className="skill-group">
+              <div key={group.category} className="tool-group">
                 <h3>{group.category}</h3>
-                <ul>
+                <ul className="tool-items">
                   {group.items.map((item) => (
-                    <li key={item.name}>{item.name}</li>
+                    <li key={item.name}><span tabIndex="0">{item.name}</span></li>
                   ))}
                 </ul>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>

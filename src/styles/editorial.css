@@ -638,6 +638,90 @@ header {
   display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1rem;
 }
 
+.tools-layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.tools-intro {
+  grid-column: 1 / 5;
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+}
+
+.tools-intro h3 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.tools-intro p {
+  max-width: 30ch;
+  color: var(--muted);
+}
+
+.tools-list {
+  grid-column: 6 / 13;
+}
+
+.tool-group {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0;
+}
+
+.tool-group:last-child { border-bottom: 1px solid var(--line); }
+.tool-group h3 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tool-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.2em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tool-items span {
+  position: relative;
+  color: var(--muted);
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  cursor: default;
+  transition: color 180ms ease, opacity 180ms ease, font-weight 180ms ease;
+}
+
+.tool-items span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+
+.tool-items:has(span:hover) span:not(:hover),
+.tool-items:has(span:focus-visible) span:not(:focus-visible) { opacity: 0.4; }
+.tool-items span:hover,
+.tool-items span:focus-visible { color: var(--text); font-weight: 600; outline: none; }
+.tool-items span:hover::after,
+.tool-items span:focus-visible::after { transform: scaleX(1); }
+
 .skill-group {
   border: 1px solid var(--line);
   padding: 1.25rem;
@@ -852,6 +936,11 @@ header {
   .ledger { grid-column:1/-1; }
   .skills-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .contact-wrap { grid-template-columns:1fr; }
+  .tools-intro, .tools-list { grid-column: 1 / -1; }
+  .tools-intro { position: static; }
+  .tool-group { display: block; }
+  .tool-group h3 { margin-bottom: 0.75rem; }
+  .tool-items span { font-size: clamp(1.35rem, 6vw, 1.8rem); }
 }
 
 @media (max-width: 899px) {

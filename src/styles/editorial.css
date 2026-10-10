@@ -123,6 +123,27 @@ body {
   transition: background 300ms ease, color 300ms ease;
 }
 
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, fill 300ms ease, stroke 300ms ease !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-reveal 500ms cubic-bezier(.7,0,.2,1);
+}
+
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--theme-x) var(--theme-y)); }
+  to { clip-path: circle(150vmax at var(--theme-x) var(--theme-y)); }
+}
+
 *{ box-sizing:border-box; }
 button, input, textarea, select { font: inherit; }
 a{ color: inherit; text-decoration: none; }
@@ -295,6 +316,15 @@ header {
   color: var(--text);
   border-radius: 999px;
   cursor: pointer;
+}
+
+.theme-icon {
+  display: inline-flex;
+  transition: transform 300ms ease;
+}
+
+.theme-icon.is-dark {
+  transform: rotate(180deg) scale(1.05);
 }
 
 .nav-actions {

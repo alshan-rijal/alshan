@@ -85,9 +85,12 @@ export default function Navbar() {
             type="button"
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            aria-pressed={theme === 'dark'}
             className="theme-button"
           >
-            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            <span className={`theme-icon${theme === 'dark' ? ' is-dark' : ''}`}>
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </span>
           </button>
 
           <a href="/#contact" className="button primary nav-cta" onClick={(event) => handleNavigation(event, 'contact')}>

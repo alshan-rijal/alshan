@@ -11,7 +11,12 @@ const getSystemTheme = () =>
 const getInitialTheme = () => {
   if (typeof window === 'undefined') return 'light'
 
-  const stored = window.localStorage.getItem(STORAGE_KEY)
+  let stored = null
+  try {
+    stored = window.localStorage.getItem(STORAGE_KEY)
+  } catch {
+    stored = null
+  }
   return stored === 'dark' || stored === 'light' ? stored : getSystemTheme()
 }
 
@@ -30,7 +35,13 @@ export function ThemeProvider({ children }) {
   }, [theme])
 
   useEffect(() => {
-    if (window.localStorage.getItem(STORAGE_KEY)) return undefined
+    let stored = null
+    try {
+      stored = window.localStorage.getItem(STORAGE_KEY)
+    } catch {
+      stored = null
+    }
+    if (stored) return undefined
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const onChange = (event) => setTheme(event.matches ? 'dark' : 'light')
@@ -39,10 +50,31 @@ export function ThemeProvider({ children }) {
     return () => mediaQuery.removeEventListener('change', onChange)
   }, [])
 
-  const toggleTheme = () => {
+  const toggleTheme = (source) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
-    window.localStorage.setItem(STORAGE_KEY, nextTheme)
-    setTheme(nextTheme)
+    try {
+      window.localStorage.setItem(STORAGE_KEY, nextTheme)
+    } catch {
+      // Theme still updates when storage is unavailable.
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const transition = document.startViewTransition
+    const update = () => setTheme(nextTheme)
+
+    if (transition && !reduceMotion) {
+      const rect = source?.currentTarget?.getBoundingClientRect()
+      const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2
+      const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2
+      document.documentElement.style.setProperty('--theme-x', `${x}px`)
+      document.documentElement.style.setProperty('--theme-y', `${y}px`)
+      transition(update)
+      return
+    }
+
+    document.documentElement.classList.add('theme-transition')
+    update()
+    window.setTimeout(() => document.documentElement.classList.remove('theme-transition'), reduceMotion ? 0 : 350)
   }
 
   return createElement(ThemeContext.Provider, { value: { theme, toggleTheme } }, children)

@@ -129,11 +129,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="about" className="section-block">
+      <section id="about" className="section-block section-alt">
         <div className="container">
           <div className="section-heading">
             <SectionKicker label="About" />
-            <h2>Soft edges, sharp thinking.</h2>
+            <h2>Soft edges, <span className="accent-word">sharp</span> thinking.</h2>
           </div>
 
           <div className="two-column editorial">
@@ -165,11 +165,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="skills" className="section-block">
+      <section id="skills" className="section-block section-alt">
         <div className="container">
           <div className="section-heading">
             <SectionKicker label="Skills" />
-            <h2>Tools I shape products with.</h2>
+            <h2>Tools I <span className="accent-word">shape</span> products with.</h2>
           </div>
 
           <div className="skills-grid">
@@ -191,7 +191,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section-heading">
             <SectionKicker label="Projects" />
-            <h2>Selected work.</h2>
+            <h2>Selected <span className="accent-word">work</span>.</h2>
           </div>
 
           <div className="project-list">
@@ -228,7 +228,7 @@ export default function HomePage() {
         <div className="container contact-wrap">
           <div className="contact-intro">
             <SectionKicker label="Contact" />
-            <h2>Let’s build something useful.</h2>
+            <h2>Let’s build something <span className="accent-word">useful</span>.</h2>
             <a href={`mailto:${profile.contact.email}`} className="email-link">
               {profile.contact.email}
             </a>

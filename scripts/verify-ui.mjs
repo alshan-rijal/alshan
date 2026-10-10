@@ -68,7 +68,7 @@ if (violations.length || missingAssets.length || missingDistAssets.length || sta
 
 const required = [
   '--bg: #f7f7f5',
-  '--accent: #007a70',
+  '--accent: #4d6b00',
   'Alshan Rijal',
   'privacy',
   'og:image',

@@ -108,6 +108,11 @@ html {
   background: var(--bg);
 }
 
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -127,6 +132,26 @@ button,input,textarea{ font: inherit; }
 .container {
   width: min(var(--max-width), calc(100% - clamp(1.25rem, 2.5vw, 3rem)));
   margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .container {
+    position: relative;
+  }
+
+  .container::before,
+  .container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    pointer-events: none;
+  }
+
+  .container::before { left: 0; }
+  .container::after { right: 0; }
 }
 
 .site-shell { min-height:100vh; }
@@ -446,7 +471,12 @@ header {
 .stats-strip strong { color: var(--text); font-variant-numeric: tabular-nums; }
 
 .section-block {
-  padding: 3.5rem 0;
+  padding: clamp(4.5rem, 10vw, 8.75rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.section-alt {
+  background: var(--bg-2);
 }
 
 .section-heading {
@@ -467,6 +497,10 @@ header {
   margin: 0;
   font-size: clamp(1.75rem, 3vw, 2.4rem);
   line-height: 1.1;
+}
+
+.accent-word {
+  color: var(--accent);
 }
 
 .two-column {
@@ -542,6 +576,34 @@ header {
 .timeline-content span { color: var(--text); }
 
 .contact-wrap { display:grid; grid-template-columns: 1.2fr 1fr; gap:2rem; }
+.contact-section {
+  background: var(--text);
+  color: var(--bg);
+  --contact-text: var(--bg);
+  --contact-muted: #d1d1ca;
+  --contact-line: rgba(247,247,245,0.24);
+  --contact-accent: #c6f432;
+}
+
+:root[data-theme='dark'] .contact-section {
+  --contact-text: #0b0b0b;
+  --contact-muted: #5e5e58;
+  --contact-line: rgba(11,11,11,0.24);
+  --contact-accent: #4d6b00;
+  background: var(--text);
+  color: var(--contact-text);
+}
+
+.contact-section .section-kicker,
+.contact-section .email-link,
+.contact-section .social-link { color: var(--contact-text); }
+.contact-section .accent-word { color: var(--contact-accent); }
+.contact-section .contact-card { border-color: var(--contact-line); background: transparent; }
+.contact-section .field { color: var(--contact-muted); }
+.contact-section .field input,
+.contact-section .field textarea { border-color: var(--contact-line); background: transparent; color: var(--contact-text); }
+.contact-section .field input:focus,
+.contact-section .field textarea:focus { outline-color: var(--contact-accent); }
 .contact-intro { display:flex; flex-direction:column; gap:1rem; }
 .email-link { font-size: clamp(1.8rem, 4vw, 4rem); line-height:0.9; letter-spacing:-0.04em; }
 .social-list { display:flex; flex-wrap:wrap; gap:0.8rem; }

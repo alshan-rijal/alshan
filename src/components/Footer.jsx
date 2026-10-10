@@ -1,6 +1,7 @@
 import profile from '../data/profile.json'
 import BrandLogo from './BrandLogo'
 import { useRouteNavigation } from '../hooks/useRouteNavigation'
+import SocialLinks from './SocialLinks'
 
 function ArrowUpIcon() {
   return (
@@ -41,6 +42,7 @@ export default function Footer() {
             Back to top
           </a>
         </div>
+        <SocialLinks className="footer-socials" />
       </div>
     </footer>
   )

@@ -4,6 +4,7 @@ import BrandLogo from './BrandLogo'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { useTheme } from '../hooks/useTheme'
 import { useRouteNavigation } from '../hooks/useRouteNavigation'
+import SocialLinks from './SocialLinks'
 
 function MoonIcon() {
   return (
@@ -175,6 +176,7 @@ export default function Navbar() {
             <a href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
             <a href="/privacy" onClick={(event) => { event.preventDefault(); setOpen(false); navigate('/privacy') }}>Privacy</a>
           </div>
+          <SocialLinks className="mobile-socials" />
         </div>
       )}
     </header>

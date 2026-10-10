@@ -5,6 +5,7 @@ import projects from '../data/projects.json'
 import education from '../data/education.json'
 import techStack from '../data/techStack.json'
 import ProjectList from '../components/ProjectList'
+import SocialLinks from '../components/SocialLinks'
 
 function SectionKicker({ label }) {
   return <p className="section-kicker">{label}</p>
@@ -15,14 +16,6 @@ function InlineMark() {
     <span className="mark" aria-hidden="true">
       <span className="dot" />
     </span>
-  )
-}
-
-function SocialLink({ platform, href }) {
-  return (
-    <a href={href} target="_blank" rel="noreferrer" aria-label={platform} className="social-link">
-      {platform}
-    </a>
   )
 }
 
@@ -205,11 +198,7 @@ export default function HomePage() {
             <a href={`mailto:${profile.contact.email}`} className="email-link">
               {profile.contact.email}
             </a>
-            <div className="social-list">
-              {profile.contact.socials.map((social) => (
-                <SocialLink key={social.platform} platform={social.platform} href={social.url} />
-              ))}
-            </div>
+            <SocialLinks />
           </div>
 
           <div className="contact-card">

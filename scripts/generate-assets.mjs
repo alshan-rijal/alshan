@@ -30,6 +30,13 @@ const writeAsset = async (source, target, width, options = {}) => {
   }
 }
 
+const transparentIcon = async (source, target, size) => {
+  await sharp(source)
+    .resize(size, size, { fit: 'contain' })
+    .png({ compressionLevel: 9, palette: true, quality: 90 })
+    .toFile(target)
+}
+
 const tile = async (source, target, size, background) => {
   const inner = Math.round(size * 0.76)
   const resized = await sharp(source).resize(inner, inner, { fit: 'contain' }).png().toBuffer()
@@ -41,7 +48,9 @@ const tile = async (source, target, size, background) => {
     .toFile(target)
 }
 
-for (const [size, name] of [[32, 'favicon-32.png'], [48, 'favicon-48.png'], [180, 'apple-touch-icon.png'], [192, 'icon-192.png'], [512, 'icon-512.png']]) {
+await transparentIcon(faviconSource, join(publicDir, 'favicon-32.png'), 32)
+await transparentIcon(faviconSource, join(publicDir, 'favicon-48.png'), 48)
+for (const [size, name] of [[180, 'apple-touch-icon.png'], [192, 'icon-192.png'], [512, 'icon-512.png']]) {
   await tile(faviconSource, join(publicDir, name), size, light)
 }
 

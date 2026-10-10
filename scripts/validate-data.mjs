@@ -7,6 +7,8 @@ const readJson = (name) => JSON.parse(readFileSync(join(root, 'src', 'data', nam
 
 const profile = readJson('profile.json')
 const projects = readJson('projects.json')
+const techStack = readJson('techStack.json')
+const toolIcons = readFileSync(join(root, 'src', 'lib', 'toolIcons.jsx'), 'utf8')
 
 const missingAssets = []
 const checkAsset = (path, where) => {
@@ -17,6 +19,9 @@ const checkAsset = (path, where) => {
 checkAsset(profile.photo, 'profile.photo')
 checkAsset(profile.resume, 'profile.resume')
 projects.forEach((project) => checkAsset(project.image, `projects.${project.id}.image`))
+const missingToolIcons = techStack.flatMap((group) =>
+  group.items.filter((item) => !toolIcons.includes(`${item.iconKey}:`)).map((item) => item.iconKey),
+)
 
 let failed = false
 
@@ -24,6 +29,10 @@ if (missingAssets.length) {
   failed = true
   console.error('\nMissing asset files (add them under /public):')
   missingAssets.forEach((entry) => console.error(`  - ${entry}`))
+}
+if (missingToolIcons.length) {
+  failed = true
+  console.error(`Missing outline tool icons: ${missingToolIcons.join(', ')}`)
 }
 
 if (failed) process.exit(1)

@@ -1,7 +1,7 @@
 import { useContactForm } from '../hooks/useContactForm'
 
 export default function ContactForm() {
-  const { values, setField, submit, reset, status, error, success } = useContactForm()
+  const { values, setField, submit, reset, status, error } = useContactForm()
 
   const handleSubmit = async (event) => {
     event.preventDefault()

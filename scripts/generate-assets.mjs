@@ -54,13 +54,6 @@ const recolorFavicon = async (source, color) => {
   return sharp(data, { raw: info }).png().toBuffer()
 }
 
-const transparentIcon = async (source, target, size) => {
-  await sharp(source)
-    .resize(size, size, { fit: 'contain' })
-    .png({ compressionLevel: 9, palette: true, quality: 90 })
-    .toFile(target)
-}
-
 const tile = async (source, target, size, background) => {
   const inner = Math.round(size * 0.76)
   const resized = await sharp(source).resize(inner, inner, { fit: 'contain' }).png().toBuffer()

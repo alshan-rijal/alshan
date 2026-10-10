@@ -180,6 +180,7 @@ button,input,textarea{ font: inherit; }
 }
 
 .site-shell { min-height:100vh; padding-bottom: 96px; }
+.site-shell { min-height:100dvh; }
 #root { min-height:100vh; }
 
 header {
@@ -1069,6 +1070,13 @@ header {
   .chat-panel { position: fixed; right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); left: 16px; width: auto; max-height: 85dvh; overflow: auto; }
   .footer-inner { align-items:flex-start; }
   .hero-title { letter-spacing:-0.04em; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .project-row:hover { background: transparent; color: var(--text); padding-inline: 0; }
+  .project-row:hover .project-meta p,
+  .project-row:hover .project-stack,
+  .project-row:hover .project-links a { color: var(--muted); }
 }
 
 @media (prefers-reduced-motion: reduce) {

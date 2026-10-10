@@ -16,6 +16,9 @@ const banned = [
   'linear-gradient',
   'box-shadow',
   'backdrop-filter',
+  'blur',
+  'glow',
+  'purple',
   'emoji',
   '—',
   '–',
@@ -29,6 +32,10 @@ const banned = [
 const violations = banned.filter((token) => file.includes(token) || html.includes(token))
 const expectedPublic = [
   'public/favicon.png',
+  'public/favicon-light-32.png',
+  'public/favicon-light-48.png',
+  'public/favicon-dark-32.png',
+  'public/favicon-dark-48.png',
   'public/favicon-32.png',
   'public/favicon-48.png',
   'public/apple-touch-icon.png',
@@ -44,6 +51,10 @@ const expectedPublic = [
 const expectedDist = [
   'dist/favicon-32.png',
   'dist/favicon-48.png',
+  'dist/favicon-light-32.png',
+  'dist/favicon-light-48.png',
+  'dist/favicon-dark-32.png',
+  'dist/favicon-dark-48.png',
   'dist/apple-touch-icon.png',
   'dist/icon-192.png',
   'dist/icon-512.png',
@@ -79,6 +90,9 @@ const required = [
   'fonts/poppins-600.woff2',
   'fonts/syne-500.woff2',
   'fonts/syne-800.woff2',
+  'tools-layout',
+  'Message',
+  'project-preview',
 ]
 
 const missing = required.filter((token) => !(file.includes(token) || html.includes(token)))

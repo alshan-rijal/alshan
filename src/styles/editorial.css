@@ -1067,6 +1067,8 @@ header {
   .project-preview { display: none; }
   .project-touch-detail { display: grid; gap: 12px; grid-column: 1 / -1; padding-top: 16px; }
   .project-touch-detail img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .chat-button { width: 52px; padding: 0; border-radius: 50%; }
+  .chat-button span { display: none; }
   .chat-panel { position: fixed; right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); left: 16px; width: auto; max-height: 85dvh; overflow: auto; }
   .footer-inner { align-items:flex-start; }
   .hero-title { letter-spacing:-0.04em; }

@@ -3,9 +3,9 @@ import ContactForm from '../components/ContactForm'
 import profile from '../data/profile.json'
 import projects from '../data/projects.json'
 import education from '../data/education.json'
-import techStack from '../data/techStack.json'
 import ProjectList from '../components/ProjectList'
 import SocialLinks from '../components/SocialLinks'
+import ToolsIndex from '../components/ToolsIndex'
 
 function SectionKicker({ label }) {
   return <p className="section-kicker">{label}</p>
@@ -113,24 +113,7 @@ export default function HomePage() {
             <h2>Tools I <span className="accent-word">shape</span> products with.</h2>
           </div>
 
-          <div className="tools-layout">
-            <div className="tools-intro">
-              <h3>Tools I <span className="accent-word">shape</span><br />products with</h3>
-              <p>The languages, frameworks and cloud services I use day to day.</p>
-            </div>
-            <div className="tools-list">
-            {techStack.map((group) => (
-              <div key={group.category} className="tool-group">
-                <h3>{group.category}</h3>
-                <ul className="tool-items">
-                  {group.items.map((item) => (
-                    <li key={item.name}><span tabIndex="0">{item.name}</span></li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            </div>
-          </div>
+          <ToolsIndex />
         </div>
       </section>
 

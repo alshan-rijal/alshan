@@ -667,23 +667,46 @@ header {
 .tool-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.2em 1.2em;
+  gap: 10px 32px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.tool-items span {
+.tool-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   position: relative;
   color: var(--muted);
-  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1.15;
   cursor: default;
   transition: color 180ms ease, opacity 180ms ease, font-weight 180ms ease;
+  min-height: 44px;
 }
 
-.tool-items span::after {
+.tool-item svg {
+  flex: 0 0 28px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 700ms ease-out;
+}
+
+.tools-layout.is-entered .tool-item svg {
+  animation: draw-tool 700ms ease-out var(--tool-delay) forwards;
+}
+
+@keyframes draw-tool {
+  to { stroke-dashoffset: 0; }
+}
+
+.tool-item > span {
+  position: relative;
+}
+
+.tool-item > span::after {
   content: '';
   position: absolute;
   left: 0;
@@ -696,12 +719,12 @@ header {
   transition: transform 250ms ease;
 }
 
-.tool-items:has(span:hover) span:not(:hover),
-.tool-items:has(span:focus-visible) span:not(:focus-visible) { opacity: 0.4; }
-.tool-items span:hover,
-.tool-items span:focus-visible { color: var(--text); font-weight: 600; outline: none; }
-.tool-items span:hover::after,
-.tool-items span:focus-visible::after { transform: scaleX(1); }
+.tool-items:has(.tool-item:hover) .tool-item:not(:hover),
+.tool-items:has(.tool-item:focus-visible) .tool-item:not(:focus-visible) { opacity: 0.45; }
+.tool-item:hover,
+.tool-item:focus-visible { color: var(--text); font-weight: 500; outline: none; }
+.tool-item:hover > span::after,
+.tool-item:focus-visible > span::after { transform: scaleX(1); }
 
 .skill-group {
   border: 1px solid var(--line);
@@ -969,7 +992,8 @@ header {
   .tools-intro { position: static; }
   .tool-group { display: block; }
   .tool-group h3 { margin-bottom: 0.75rem; }
-  .tool-items span { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+  .tool-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
+  .tool-item { font-size: 16px; }
 }
 
 @media (max-width: 899px) {

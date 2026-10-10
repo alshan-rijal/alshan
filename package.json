@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-seo.mjs",
     "build": "vite build",
+    "postbuild": "node scripts/prerender.mjs",
     "lint": "oxlint .",
     "preview": "vite preview",
     "server": "node server/index.js",
     "generate-assets": "node scripts/generate-assets.mjs",
     "check:data": "node scripts/validate-data.mjs",
     "smoke": "node scripts/smoke-render.mjs",
-    "verify:ui": "node scripts/verify-ui.mjs"
+    "verify:ui": "node scripts/verify-ui.mjs",
+    "verify:seo": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.0.13",

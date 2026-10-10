@@ -135,7 +135,7 @@ export default function HomePage() {
           <ol className="timeline">
             {education.map((item) => (
               <li key={`${item.role}-${item.org}`} className="timeline-item">
-                <div className="timeline-date">{item.period}</div>
+                <time className="timeline-date" dateTime={item.period}>{item.period}</time>
                 <div className="timeline-content">
                   <h3>{item.role}</h3>
                   <p>{item.org}</p>

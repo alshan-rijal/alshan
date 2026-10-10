@@ -564,7 +564,6 @@ header {
 .ledger-row:hover::before,
 .ledger-row:focus-within::before { transform: scaleY(1); }
 .ledger-row:hover > span { color: var(--text); }
-}
 
 .hero-panel-header {
   display: flex;

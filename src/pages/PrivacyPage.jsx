@@ -1,6 +1,20 @@
 export default function PrivacyPage() {
   return (
     <main className="simple-page">
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': 'https://alshanrijal.com.np/privacy',
+        url: 'https://alshanrijal.com.np/privacy',
+        name: 'Privacy Policy | Alshan Rijal',
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://alshanrijal.com.np/' },
+            { '@type': 'ListItem', position: 2, name: 'Privacy Policy', item: 'https://alshanrijal.com.np/privacy' },
+          ],
+        },
+      })}</script>
       <section className="page-header">
         <h1>How contact data is handled</h1>
       </section>

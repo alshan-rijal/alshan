@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import profile from '../data/profile.json'
 import BrandLogo from './BrandLogo'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { useTheme } from '../hooks/useTheme'
@@ -50,6 +51,8 @@ const NAV_IDS = NAV_ITEMS.map((item) => item.id)
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef(null)
+  const menuRef = useRef(null)
   const { location, navigate } = useRouteNavigation()
   const activeId = useScrollSpy(NAV_IDS, 160, location.pathname === '/')
   const { theme, toggleTheme } = useTheme()
@@ -59,6 +62,48 @@ export default function Navbar() {
     setOpen(false)
     navigate(homeRoute(id))
   }
+
+  useEffect(() => {
+    if (!open) {
+      document.body.style.overflow = ''
+      document.querySelector('.site-shell')?.removeAttribute('inert')
+      menuButtonRef.current?.focus()
+      return undefined
+    }
+
+    document.body.style.overflow = 'hidden'
+    document.querySelector('.site-shell')?.setAttribute('inert', '')
+    const menu = menuRef.current
+    const focusable = menu?.querySelectorAll('a, button')
+    focusable?.[0]?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        return
+      }
+      if (event.key !== 'Tab' || !focusable?.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    const onResize = () => {
+      if (window.innerWidth >= 900) setOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    window.addEventListener('resize', onResize)
+    return () => {
+      document.body.style.overflow = ''
+      document.querySelector('.site-shell')?.removeAttribute('inert')
+      document.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [open])
 
   const linkClasses = (id) =>
     `nav-item${activeId === id ? ' active' : ''}`
@@ -99,9 +144,11 @@ export default function Navbar() {
 
           <button
             type="button"
+            ref={menuButtonRef}
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             className="theme-button nav-toggle"
           >
             {open ? <CloseIcon /> : <MenuIcon />}
@@ -110,7 +157,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mobile-menu container" aria-label="Mobile navigation">
+        <div ref={menuRef} id="mobile-menu" className="mobile-menu" aria-label="Mobile navigation">
           <ul>
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
@@ -124,6 +171,10 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <div className="mobile-menu-footer">
+            <a href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
+            <a href="/privacy" onClick={(event) => { event.preventDefault(); setOpen(false); navigate('/privacy') }}>Privacy</a>
+          </div>
         </div>
       )}
     </header>

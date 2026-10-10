@@ -1106,9 +1106,9 @@ header {
     padding-block: 24px;
   }
 
-  .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
-  .summary { margin-top: 16px; }
-  .hero-actions { margin-top: 16px; }
+  .hero-title { font-size: clamp(2.25rem, 8vw, 4rem); }
+  .summary { margin-top: 8px; font-size: 0.9rem; line-height: 1.35; }
+  .hero-actions { margin-top: 12px; }
 }
 
 @media (hover: none), (pointer: coarse) {

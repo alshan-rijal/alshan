@@ -46,26 +46,5 @@
         "url": "mailto:contact@alshanrijal.com.np"
       }
     ]
-  },
-  "stats": [
-    { "label": "Yrs Learning", "value": "4+", "icon": "zap", "tone": "violet" },
-    {
-      "label": "Internships",
-      "value": "2",
-      "icon": "briefcase",
-      "tone": "pink"
-    },
-    {
-      "label": "Open to Work",
-      "value": "Yes",
-      "icon": "check",
-      "tone": "emerald"
-    }
-  ],
-  "aboutStats": [
-    { "label": "Projects Built", "value": "18+", "icon": "code", "tone": "violet" },
-    { "label": "Technologies", "value": "24", "icon": "layers", "tone": "sky" },
-    { "label": "Certifications", "value": "6", "icon": "award", "tone": "amber" },
-    { "label": "Coffee Cups", "value": "1.2k", "icon": "coffee", "tone": "pink" }
-  ]
+  }
 }

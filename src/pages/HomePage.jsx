@@ -11,14 +11,6 @@ function SectionKicker({ label }) {
   return <p className="section-kicker">{label}</p>
 }
 
-function InlineMark() {
-  return (
-    <span className="mark" aria-hidden="true">
-      <span className="dot" />
-    </span>
-  )
-}
-
 export default function HomePage() {
   const projectRows = useMemo(() => projects.filter((project) => project.title !== 'Will be uploaded soon'), [])
 
@@ -27,11 +19,6 @@ export default function HomePage() {
       <section id="home" className="hero-section">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="open-line">
-              <InlineMark />
-              <span>Open to work</span>
-            </div>
-
             <h1 aria-label="Alshan Rijal" className="hero-title">
               <span className="title-plain">Alshan</span>
               <span className="title-outline">Rijal</span>
@@ -67,29 +54,7 @@ export default function HomePage() {
               <span>Based in</span>
               <strong>Itahari, Nepal</strong>
             </div>
-            <div className="ledger-row">
-              <span>Status</span>
-              <strong>
-                <span className="status-dot" aria-hidden="true" />
-                Open to work
-              </strong>
-            </div>
           </aside>
-        </div>
-
-        <div className="container stats-strip">
-          <div>
-            <span>Years learning</span>
-            <strong>4+</strong>
-          </div>
-          <div>
-            <span>Internships</span>
-            <strong>2</strong>
-          </div>
-          <div>
-            <span>Location</span>
-            <strong>Nepal</strong>
-          </div>
         </div>
       </section>
 

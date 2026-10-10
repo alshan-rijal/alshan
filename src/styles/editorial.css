@@ -434,25 +434,6 @@ header {
   grid-column: 1 / 7;
 }
 
-.open-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--text);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 1.2rem;
-}
-
-.mark {
-  display: inline-flex;
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 .hero-title {
   display: flex;
   flex-direction: column;
@@ -542,35 +523,6 @@ header {
 
 .ledger-row:first-child { border-top: 0; }
 .ledger-row strong { color: var(--text); font-weight: 500; }
-.status-dot {
-  display: inline-block;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--accent);
-  margin-right: 0.45rem;
-  vertical-align: middle;
-}
-
-.stats-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.stats-strip div {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 0;
-  color: var(--muted);
-}
-
-.stats-strip strong { color: var(--text); font-variant-numeric: tabular-nums; }
-
 .section-block {
   padding: clamp(4.5rem, 10vw, 8.75rem) 0;
   border-top: 1px solid var(--line);
@@ -1003,7 +955,7 @@ header {
   .brand-logo-picture,
   .brand-logo-picture img { width:28px; height:28px; flex-basis:28px; }
   .brand-wordmark { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-  .two-column, .skills-grid, .field-row, .stats-strip, .timeline-item, .contact-wrap { grid-template-columns: 1fr; }
+  .two-column, .skills-grid, .field-row, .timeline-item, .contact-wrap { grid-template-columns: 1fr; }
   .facts-box { border-right: none; padding-right: 0; }
   .project-row { grid-template-columns: 1fr; }
   .project-preview { display: none; }

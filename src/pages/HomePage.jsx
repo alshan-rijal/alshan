@@ -12,7 +12,7 @@ function SectionKicker({ label }) {
 }
 
 export default function HomePage() {
-  const projectRows = useMemo(() => projects.filter((project) => project.title !== 'Will be uploaded soon'), [])
+  const projectRows = useMemo(() => projects, [])
 
   return (
     <>

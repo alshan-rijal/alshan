@@ -52,7 +52,7 @@ export function ThemeProvider({ children }) {
     return () => mediaQuery.removeEventListener('change', onChange)
   }, [])
 
-  const toggleTheme = (source) => {
+  const toggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
     const root = document.documentElement
     const durationValue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--theme-duration'))

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { OutlineLogo } from './OutlineLogo'
+import { GithubIcon, GlobeIcon } from './ProjectIcons'
 
 function linksFor(project) {
   return [
-    project.liveUrl && project.liveUrl !== '#' ? { label: 'Live demo', href: project.liveUrl } : null,
-    project.githubUrl && project.githubUrl !== '#' ? { label: 'Source', href: project.githubUrl } : null,
+    project.liveUrl && project.liveUrl !== '#' ? { label: 'Live demo', href: project.liveUrl, Icon: GlobeIcon } : null,
+    project.githubUrl && project.githubUrl !== '#' ? { label: 'Source', href: project.githubUrl, Icon: GithubIcon } : null,
   ].filter(Boolean)
 }
 
@@ -103,8 +103,8 @@ export default function ProjectList({ projects }) {
               <div className="project-stack">{project.techStack.join(' / ')}</div>
               <div className="project-links">
                 {links.map((link) => (
-                  <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
-                    <OutlineLogo />
+                  <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.label === 'Source' ? `Source code of ${project.title} on GitHub` : `Live demo of ${project.title}`}`}>
+                    <link.Icon />
                     {link.label}
                   </a>
                 ))}

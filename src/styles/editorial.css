@@ -1103,12 +1103,13 @@ header {
 @media (max-height: 500px) and (orientation: landscape) {
   .hero-section {
     min-height: auto;
-    padding-block: 24px;
+    padding-block: 8px;
   }
 
-  .hero-title { font-size: clamp(2.25rem, 8vw, 4rem); }
-  .summary { margin-top: 8px; font-size: 0.9rem; line-height: 1.35; }
-  .hero-actions { margin-top: 12px; }
+  .hero-title { font-size: clamp(2rem, 6vw, 3rem); }
+  .eyebrow { margin-top: 4px; }
+  .summary { margin-top: 4px; font-size: 0.85rem; line-height: 1.25; }
+  .hero-actions { margin-top: 4px; }
 }
 
 @media (hover: none), (pointer: coarse) {

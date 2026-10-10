@@ -4,13 +4,7 @@ import profile from '../data/profile.json'
 import projects from '../data/projects.json'
 import education from '../data/education.json'
 import techStack from '../data/techStack.json'
-
-const formatProjectLinks = (project) => {
-  const links = []
-  if (project.liveUrl && project.liveUrl !== '#') links.push({ label: 'Live', href: project.liveUrl })
-  if (project.githubUrl && project.githubUrl !== '#') links.push({ label: 'Code', href: project.githubUrl })
-  return links
-}
+import ProjectList from '../components/ProjectList'
 
 function SectionKicker({ label }) {
   return <p className="section-kicker">{label}</p>
@@ -29,29 +23,6 @@ function SocialLink({ platform, href }) {
     <a href={href} target="_blank" rel="noreferrer" aria-label={platform} className="social-link">
       {platform}
     </a>
-  )
-}
-
-function ProjectPreview({ project }) {
-  return (
-    <article className="project-row" key={project.id}>
-      <div className="project-meta">
-        <span className="project-number">{String(project.id).slice(0, 2).toUpperCase()}</span>
-        <div>
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-        </div>
-      </div>
-      <div className="project-stack">{project.techStack.join(' / ')}</div>
-      <div className="project-links">
-        {formatProjectLinks(project).map((link) => (
-          <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
-            {link.label}
-          </a>
-        ))}
-      </div>
-      <span className="marker" aria-hidden="true" />
-    </article>
   )
 }
 
@@ -194,11 +165,7 @@ export default function HomePage() {
             <h2>Selected <span className="accent-word">work</span>.</h2>
           </div>
 
-          <div className="project-list">
-            {projectRows.map((project) => (
-              <ProjectPreview key={project.id} project={project} />
-            ))}
-          </div>
+          <ProjectList projects={projectRows} />
         </div>
       </section>
 

@@ -115,6 +115,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px;
   background: var(--bg);
+  overflow-x: clip;
 }
 
 ::selection {
@@ -129,6 +130,7 @@ body {
   color: var(--text);
   line-height: 1.65;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
   transition: background-color var(--theme-duration) var(--theme-ease), color var(--theme-duration) var(--theme-ease);
 }
 

@@ -41,7 +41,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          <aside className="ledger" aria-label="Now ledger">
+          <aside className="hero-panel" aria-label="Profile details">
+            <div className="hero-panel-visual">
+              <picture>
+                <source srcSet="/images/avatar.webp" type="image/webp" />
+                <img src="/images/avatar.jpeg" alt="Alshan Rijal" width="720" height="1280" fetchPriority="high" />
+              </picture>
+            </div>
+            <div className="ledger">
             <div className="ledger-row">
               <span>Focus</span>
               <strong>AI/ML and cloud</strong>
@@ -53,6 +60,11 @@ export default function HomePage() {
             <div className="ledger-row">
               <span>Based in</span>
               <strong>Itahari, Nepal</strong>
+            </div>
+            <div className="ledger-row">
+              <span>Building</span>
+              <strong>NOVA, an AI assistant model</strong>
+            </div>
             </div>
           </aside>
         </div>

@@ -70,7 +70,7 @@
   --container-max: 1280px;
   --gutter: clamp(24px, 4vw, 56px);
   --header-h: 72px;
-  --theme-duration: 1000ms;
+  --theme-duration: 500ms;
   --theme-ease: cubic-bezier(.4, 0, .2, 1);
   --pad-x-sm: 16px;
   --pad-y-sm: 12px;
@@ -323,12 +323,32 @@ header {
 }
 
 .theme-icon {
-  display: inline-flex;
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  transform-origin: 50% 50%;
   transition: transform var(--theme-duration) var(--theme-ease);
 }
 
-.theme-icon.is-dark {
-  transform: rotate(180deg) scale(1.05);
+.theme-icon > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  transform-origin: 50% 50%;
+  transition: opacity var(--theme-duration) var(--theme-ease), transform var(--theme-duration) var(--theme-ease);
+}
+
+.theme-icon-moon { opacity: 1; transform: rotate(0deg); }
+.theme-icon-sun { opacity: 0; transform: rotate(60deg); }
+.theme-icon.is-dark .theme-icon-moon { opacity: 0; transform: rotate(-60deg); }
+.theme-icon.is-dark .theme-icon-sun { opacity: 1; transform: rotate(0deg); }
+.theme-icon svg {
+  width: 22px;
+  height: 22px;
+  overflow: visible;
 }
 
 .nav-actions {
@@ -1150,7 +1170,7 @@ header {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; }
-  .theme-icon.is-dark { transform: none; }
+  .theme-icon > span { transition: opacity var(--theme-duration) var(--theme-ease); transform: none !important; }
   .tool-item:hover,
   .tool-item:focus-visible,
   .tool-item:active { transform: none; }

@@ -54,7 +54,7 @@ export function ThemeProvider({ children }) {
   const toggleTheme = (source) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
     const root = document.documentElement
-    const duration = Number.parseFloat(getComputedStyle(root).getPropertyValue('--theme-duration')) || 1000
+    const duration = Number.parseFloat(getComputedStyle(root).getPropertyValue('--theme-duration')) || 500
     const metaThemeColor = document.querySelector('meta[name="theme-color"]')
     metaThemeColor?.setAttribute('content', nextTheme === 'dark' ? '#0B0B0B' : '#F7F7F5')
     try {

@@ -8,17 +8,17 @@ import SocialLinks from './SocialLinks'
 
 function MoonIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M20 15.5A7.5 7.5 0 0 1 8.5 4a7.5 7.5 0 1 0 11.5 11.5Z" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   )
 }
 
 function SunIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" strokeLinecap="round" />
+      <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" />
     </svg>
   )
 }
@@ -137,8 +137,9 @@ export default function Navbar() {
             aria-pressed={theme === 'dark'}
             className="theme-button"
           >
-            <span className={`theme-icon${theme === 'dark' ? ' is-dark' : ''}`}>
-              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            <span className={`theme-icon${theme === 'dark' ? ' is-dark' : ''}`} aria-hidden="true">
+              <span className="theme-icon-moon"><MoonIcon /></span>
+              <span className="theme-icon-sun"><SunIcon /></span>
             </span>
           </button>
 

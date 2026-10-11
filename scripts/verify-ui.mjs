@@ -56,8 +56,13 @@ const navDotPattern = /\.nav-(?:links|menu)[^{]*\{[^}]*content:\s*['"][^'"]+['"]
 const sourceHasNavDots = navDotPattern.test(file) || /[•·]|&bull;/.test(file)
 const hasNavListReset = /\.nav-links\s*\{[^}]*list-style:\s*none/s.test(file)
 const hasThemeDuration = /--theme-duration:\s*500ms/.test(file)
+const projectListSource = readFileSync(join(root, 'src', 'components', 'ProjectList.jsx'), 'utf8')
+const marqueeSource = readFileSync(join(root, 'src', 'components', 'TechMarquee.jsx'), 'utf8')
+const hasProjectTechLogos = projectListSource.includes('<OutlineLogo') && projectListSource.includes('project-tech-fallback')
+const hasOutlineOnlyProjectLogos = !projectListSource.match(/<svg[^>]*fill={(?!['"]none['"])/s)
+const hasNoMarqueeButton = !marqueeSource.includes('<button') && !marqueeSource.includes('tech-marquee-toggle')
 
-if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length || sourceHasNavDots || !hasNavListReset || !hasThemeDuration) {
+if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length || sourceHasNavDots || !hasNavListReset || !hasThemeDuration || !hasProjectTechLogos || !hasOutlineOnlyProjectLogos || !hasNoMarqueeButton) {
   if (violations.length) console.error('Banned token matches found:', violations)
   if (missingAssets.length) console.error('Missing public assets:', missingAssets)
   if (missingDistAssets.length) console.error('Missing built assets:', missingDistAssets)
@@ -67,6 +72,9 @@ if (violations.length || missingAssets.length || missingDistAssets.length || sta
   if (sourceHasNavDots) console.error('Navigation contains a bullet or generated dot.')
   if (!hasNavListReset) console.error('Desktop navigation list must have list-style: none.')
   if (!hasThemeDuration) console.error('Theme duration must be 500ms.')
+  if (!hasProjectTechLogos) console.error('Project rows must render an outline logo or fallback text for each technology.')
+  if (!hasOutlineOnlyProjectLogos) console.error('Project row logos must not use filled SVGs.')
+  if (!hasNoMarqueeButton) console.error('The technology marquee must not contain a pause/play button.')
   process.exit(1)
 }
 

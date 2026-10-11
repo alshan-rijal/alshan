@@ -38,6 +38,17 @@ const ICON_PATHS = {
   vercel: ['M4 19 12 5l8 14H4Z'],
 }
 
+const normalizeIconKey = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, '')
+
+export function getToolIconPaths(iconKey) {
+  return ICON_PATHS[iconKey]
+}
+
+export function getToolIconKey(name) {
+  const normalizedName = normalizeIconKey(name)
+  return Object.keys(ICON_PATHS).find((key) => normalizeIconKey(key) === normalizedName)
+}
+
 export function ToolIcon({ iconKey, size = 28 }) {
   const paths = ICON_PATHS[iconKey] ?? ['M5 5h14v14H5z', 'M8 12h8']
   return (

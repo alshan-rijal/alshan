@@ -22,6 +22,11 @@ projects.forEach((project) => checkAsset(project.image, `projects.${project.id}.
 const missingToolIcons = techStack.flatMap((group) =>
   group.items.filter((item) => !toolIcons.includes(`${item.iconKey}:`)).map((item) => item.iconKey),
 )
+const normalizeIconKey = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, '')
+const iconKeys = [...toolIcons.matchAll(/^\s{2}([a-z0-9]+):\s*\[/gm)].map((match) => match[1])
+const unmatchedProjectTech = [...new Set(projects.flatMap((project) =>
+  project.techStack.filter((name) => !iconKeys.some((key) => normalizeIconKey(key) === normalizeIconKey(name))),
+))]
 
 let failed = false
 
@@ -33,6 +38,9 @@ if (missingAssets.length) {
 if (missingToolIcons.length) {
   failed = true
   console.error(`Missing outline tool icons: ${missingToolIcons.join(', ')}`)
+}
+if (unmatchedProjectTech.length) {
+  console.warn(`Unmatched project technology names (shown as text): ${unmatchedProjectTech.join(', ')}`)
 }
 
 if (failed) process.exit(1)

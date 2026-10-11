@@ -1,6 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { GithubIcon, GlobeIcon } from './ProjectIcons'
+import { OutlineLogo } from './OutlineLogo'
+import techStack from '../data/techStack.json'
+import { getToolIconKey, getToolIconPaths } from '../lib/toolIcons'
+
+const toolDetails = techStack.flatMap((group) => group.items)
+const techDetails = (name) => {
+  const iconKey = getToolIconKey(name)
+  return {
+    iconKey,
+    paths: iconKey ? getToolIconPaths(iconKey) : undefined,
+    brand: toolDetails.find((item) => item.iconKey === iconKey)?.brand,
+  }
+}
 
 function linksFor(project) {
   return [
@@ -100,7 +113,15 @@ export default function ProjectList({ projects }) {
                   <p>{project.description}</p>
                 </div>
               </div>
-              <div className="project-stack">{project.techStack.join(' / ')}</div>
+              <div className="project-stack" aria-label={`${project.title} technology stack`}>
+                <span className="sr-only">{project.techStack.join(' / ')}</span>
+                {project.techStack.map((tech) => {
+                  const details = techDetails(tech)
+                  return details.paths
+                    ? <OutlineLogo key={tech} paths={details.paths} size={20} className="project-tech-logo" ariaLabel={tech} title={tech} style={{ '--tool-light': details.brand?.light, '--tool-dark': details.brand?.dark }} />
+                    : <span key={tech} className="project-tech-fallback">{tech}</span>
+                })}
+              </div>
               <div className="project-links">
                 {links.map((link) => (
                   <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.label === 'Source' ? `Source code of ${project.title} on GitHub` : `Live demo of ${project.title}`}`}>

@@ -2,18 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import techStack from '../data/techStack.json'
 import { ToolIcon } from '../lib/toolIcons'
 
-function PauseIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
-}
-
-function PlayIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 10 7-10 7V5Z" /></svg>
-}
-
 export default function TechMarquee() {
   const rootRef = useRef(null)
   const trackRef = useRef(null)
-  const [paused, setPaused] = useState(false)
   const [visible, setVisible] = useState(false)
   const items = useMemo(() => techStack.flatMap((group) => group.items), [])
 
@@ -47,22 +38,13 @@ export default function TechMarquee() {
   ))
 
   return (
-    <div ref={rootRef} className={`tech-marquee${paused ? ' is-paused' : ''}${visible ? '' : ' is-offscreen'}`}>
+    <div ref={rootRef} className={`tech-marquee${visible ? '' : ' is-offscreen'}`}>
       <div className="tech-marquee-viewport">
         <ul ref={trackRef} className="tech-marquee-track" aria-label="Technology tools">
           {renderItems()}
           {renderItems(true)}
         </ul>
       </div>
-      <button
-        type="button"
-        className="tech-marquee-toggle"
-        aria-label={paused ? 'Play scrolling' : 'Pause scrolling'}
-        aria-pressed={paused}
-        onClick={() => setPaused((value) => !value)}
-      >
-        {paused ? <PlayIcon /> : <PauseIcon />}
-      </button>
     </div>
   )
 }

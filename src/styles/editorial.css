@@ -678,7 +678,6 @@ header {
   will-change: transform;
 }
 
-.tech-marquee.is-paused .tech-marquee-track,
 .tech-marquee:hover .tech-marquee-track,
 .tech-marquee:focus-within .tech-marquee-track,
 .tech-marquee.is-offscreen .tech-marquee-track,
@@ -708,24 +707,6 @@ header {
 .tech-chip:hover, .tech-chip:focus-visible { color: var(--tool-light); transform: translateY(-4px); outline: none; }
 :root[data-theme='dark'] .tech-chip:hover,
 :root[data-theme='dark'] .tech-chip:focus-visible { color: var(--tool-dark); }
-.tech-marquee-toggle {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  z-index: 2;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  transform: translateY(-50%);
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  background: var(--bg-2);
-  color: var(--text);
-  cursor: pointer;
-}
-.tech-marquee-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-
 .section-kicker {
   margin: 0 0 0.7rem;
   text-transform: uppercase;
@@ -972,11 +953,22 @@ header {
 .project-number { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); }
 .project-meta h3 { margin: 0; font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
 .project-meta p { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.9rem; }
-.project-stack, .project-links a { color: var(--muted); font-size: 0.8rem; }
+.project-stack { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--muted); font-size: 0.8rem; }
+.project-tech-logo { flex: 0 0 20px; color: var(--muted); transition: transform 350ms cubic-bezier(.2,.8,.2,1), stroke 350ms ease; }
+.project-tech-logo:hover,
+.project-tech-logo:focus-visible { color: var(--tool-light); transform: translateY(-3px); outline: none; }
+:root[data-theme='dark'] .project-tech-logo:hover,
+:root[data-theme='dark'] .project-tech-logo:focus-visible { color: var(--tool-dark); }
+.project-tech-fallback { color: var(--muted); }
+.project-links a { color: var(--muted); font-size: 0.8rem; }
 .project-links { display:flex; gap:0.8rem; flex-wrap: wrap; }
 .project-links a { display: inline-flex; align-items: center; gap: 0.3rem; border-bottom: 1px solid transparent; }
 .project-links a:hover, .project-links a:focus-visible { color: var(--text); border-color: var(--accent); }
 .project-links svg { flex: 0 0 18px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 .marker { display:block; width: 0.7rem; height: 0.7rem; background: var(--accent); border-radius:2px; }
 
 .project-preview {

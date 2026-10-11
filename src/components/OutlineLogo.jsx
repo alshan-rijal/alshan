@@ -1,7 +1,8 @@
-export function OutlineLogo({ size = 18, className = '' }) {
+export function OutlineLogo({ size = 18, className = '', paths, ariaLabel, title, style }) {
   return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" aria-hidden="true">
-      <path d="M5 19 11.8 5h.6L19 19M7.6 14.2h8.8M9.2 10.8l5.7 4.6" />
+    <svg className={className} style={style} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" role={ariaLabel ? 'img' : undefined} aria-label={ariaLabel} aria-hidden={ariaLabel ? undefined : 'true'}>
+      {title && <title>{title}</title>}
+      {(paths ?? ['M5 19 11.8 5h.6L19 19M7.6 14.2h8.8M9.2 10.8l5.7 4.6']).map((d) => <path key={d} d={d} />)}
     </svg>
   )
 }

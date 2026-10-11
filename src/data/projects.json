@@ -22,14 +22,14 @@
     "tone": "pink"
   },
   {
-    "id": "Yet to be uploaded",
-    "title": "Will be uploaded soon",
-    "description": "A yet-to-be-uploaded project that will be showcased soon.",
-    "image": null,
-    "techStack": [],
-    "liveUrl": "#",
-    "githubUrl": "#",
-    "featured": false,
+    "id": "Metamorph",
+    "title": "Metamorph",
+    "description": "Convert images & PDFs, 100% in your browser. Nothing uploaded, nothing stored.",
+    "image": "/images/projects/metamorph.png",
+    "techStack": ["react", "tailwindcss", "typescript"],
+    "liveUrl": "https://metamorph.alshanrijal.com.np/",
+    "githubUrl": "https://github.com/alshan-rijal/metamorph",
+    "featured": true,
     "tone": "sky"
   },
   {

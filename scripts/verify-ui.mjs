@@ -61,8 +61,14 @@ const marqueeSource = readFileSync(join(root, 'src', 'components', 'TechMarquee.
 const hasProjectTechLogos = projectListSource.includes('<OutlineLogo') && projectListSource.includes('project-tech-fallback')
 const hasOutlineOnlyProjectLogos = !projectListSource.match(/<svg[^>]*fill={(?!['"]none['"])/s)
 const hasNoMarqueeButton = !marqueeSource.includes('<button') && !marqueeSource.includes('tech-marquee-toggle')
+const hasIntro = file.includes("import './intro.js'") && file.includes('id="intro"') && file.includes('introSeen')
+const hasSharedBrandMark = file.includes('viewBox="0 0 908 718"') && file.includes('BrandMark')
+const hasRevealHooks = file.includes('data-reveal="fade"') && file.includes('data-reveal="line"')
+const hasIntroPrepaintGuard = html.includes('intro-pending') && html.includes('sessionStorage.getItem')
+const hasOverlayOutsideRoot = html.indexOf('<div class="intro"') < html.indexOf('<div id="root">')
+const hasNoReactIntro = !file.includes('IntroAnimation.jsx')
 
-if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length || sourceHasNavDots || !hasNavListReset || !hasThemeDuration || !hasProjectTechLogos || !hasOutlineOnlyProjectLogos || !hasNoMarqueeButton) {
+if (violations.length || missingAssets.length || missingDistAssets.length || staleAssets.length || sourceHasDist || faviconLinks.length !== 2 || invalidFaviconLinks.length || sourceHasNavDots || !hasNavListReset || !hasThemeDuration || !hasProjectTechLogos || !hasOutlineOnlyProjectLogos || !hasNoMarqueeButton || !hasIntro || !hasSharedBrandMark || !hasRevealHooks || !hasIntroPrepaintGuard || !hasOverlayOutsideRoot || !hasNoReactIntro) {
   if (violations.length) console.error('Banned token matches found:', violations)
   if (missingAssets.length) console.error('Missing public assets:', missingAssets)
   if (missingDistAssets.length) console.error('Missing built assets:', missingDistAssets)
@@ -75,6 +81,12 @@ if (violations.length || missingAssets.length || missingDistAssets.length || sta
   if (!hasProjectTechLogos) console.error('Project rows must render an outline logo or fallback text for each technology.')
   if (!hasOutlineOnlyProjectLogos) console.error('Project row logos must not use filled SVGs.')
   if (!hasNoMarqueeButton) console.error('The technology marquee must not contain a pause/play button.')
+  if (!hasIntro) console.error('Home intro animation and session gating are missing.')
+  if (!hasSharedBrandMark) console.error('The shared three-path brand mark is missing.')
+  if (!hasRevealHooks) console.error('Intro reveal hooks are incomplete.')
+  if (!hasIntroPrepaintGuard) console.error('The intro pre-paint guard is missing.')
+  if (!hasOverlayOutsideRoot) console.error('The intro overlay must be outside #root.')
+  if (!hasNoReactIntro) console.error('The React IntroAnimation implementation must be removed.')
   process.exit(1)
 }
 

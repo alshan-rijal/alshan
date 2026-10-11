@@ -55,8 +55,8 @@ try {
     throw new Error(`Missing content in render: ${missingSnippets.join(', ')}`)
   }
 
-  if (!html.includes('brand/logo-32.png') || !html.includes('brand/logo-32-dark.png')) {
-    throw new Error('Rendered header/footer logo variants are missing.')
+  if (!html.includes('viewBox="0 0 908 718"') || !html.includes('M471 0 L383 0')) {
+    throw new Error('Rendered shared SVG logo marks are missing.')
   }
   if (!html.includes('Message') || !html.includes('tools-layout')) {
     throw new Error('Contact surface is missing.')

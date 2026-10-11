@@ -53,7 +53,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <RouteMeta page={page} />
-      <Suspense fallback={<div className="loading-shell" /> }>
+      <Suspense fallback={<div className="loading-shell" /> } >
         <AppShell page={page} />
       </Suspense>
     </ThemeProvider>

@@ -19,13 +19,13 @@ export default function HomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <h1 aria-label="Alshan Rijal" className="hero-title">
-              <span className="title-plain">Alshan</span>
-              <span className="title-outline">Rijal</span>
+              <span className="title-plain" data-reveal="line">Alshan</span>
+              <span className="title-outline" data-reveal="line">Rijal</span>
             </h1>
 
-            <p className="eyebrow">AI / ML + Cloud</p>
+            <p className="eyebrow" data-reveal="fade">AI / ML + Cloud</p>
 
-            <p className="summary">
+            <p className="summary" data-reveal="fade">
               Software engineer from Itahari, Nepal, building AI/ML and cloud projects with
               Python and the MERN stack.
             </p>

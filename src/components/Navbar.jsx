@@ -98,8 +98,8 @@ export default function Navbar() {
 
   return (
     <header className="site-header">
-      <nav className="container nav-inner" aria-label="Main navigation">
-        <a href="/" className="logo" aria-label="Alshan Rijal home" onClick={(event) => handleNavigation(event, 'home')}>
+      <nav className="container nav-inner" aria-label="Main navigation" data-reveal="fade">
+        <a id="brand" href="/" className="logo lockup brand" aria-label="Alshan Rijal" onClick={(event) => handleNavigation(event, 'home')}>
           <BrandLogo />
         </a>
 
@@ -120,6 +120,7 @@ export default function Navbar() {
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             aria-pressed={theme === 'dark'}
             className="theme-button"
+            data-reveal="fade"
           >
             <span className={`theme-icon${theme === 'dark' ? ' is-dark' : ''}`} aria-hidden="true">
               <span className="theme-icon-moon"><MoonIcon /></span>

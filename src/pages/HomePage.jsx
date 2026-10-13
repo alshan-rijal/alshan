@@ -44,7 +44,7 @@ export default function HomePage() {
             <div className="hero-panel-header">
               <span>Profile</span>
               {
-              <img src="/public/brand/logo.png" height="50" alt="Outline logo" className="outline-logo" />
+              <img src="/brand/logo.png" height="50" alt="Outline logo" className="outline-logo" />
               }
             </div>
             <div className="ledger">

@@ -31,38 +31,5 @@
     "githubUrl": "https://github.com/alshan-rijal/metamorph",
     "featured": true,
     "tone": "sky"
-  },
-  {
-   "id": "Yet to be uploaded",
-    "title": "Will be uploaded soon",
-    "description": "A yet-to-be-uploaded project that will be showcased soon.",
-    "image": null,
-    "techStack": [],
-    "liveUrl": "#",
-    "githubUrl": "#",
-    "featured": false,
-    "tone": "cyan"
-  },
-  {
-   "id": "Yet to be uploaded",
-    "title": "Will be uploaded soon",
-    "description": "A yet-to-be-uploaded project that will be showcased soon.",
-    "image": null,
-    "techStack": [],
-    "liveUrl": "#",
-    "githubUrl": "#",
-    "featured": false,
-    "tone": "emerald"
-  },
-  {
-    "id": "Yet to be uploaded",
-    "title": "Will be uploaded soon",
-    "description": "A yet-to-be-uploaded project that will be showcased soon.",
-    "image": null,
-    "techStack": [],
-    "liveUrl": "#",
-    "githubUrl": "#",
-    "featured": false,
-    "tone": "amber"
   }
 ]

@@ -1,15 +1,15 @@
 {
   "name": "Alshan Rijal",
-  "role": "Tech Enthusiast",
-  "tagline": "Building intelligent, real-world systems.",
+  "role": "MERN and Python Developer",
+  "tagline": "Python & MERN developer building AI models for the real world.",
   "hero": {
-    "greeting": "Hi there, I'm Alshan",
-    "headlinePrefix": "I craft",
-    "headlineHighlight": "software",
-    "headlineSuffix": "that thinks",
+   "greeting": "Hello, I'm Alshan",
+   "headlinePrefix": "I connect",
+   "headlineHighlight": "full-stack",
+   "headlineSuffix": "web apps to AI models in the cloud",
     "subline": "Software Engineer from Itahari-5, Sunsari, Nepal - focused on AI/ML and cloud technologies, building intelligent, real-world systems with Python and the MERN stack."
   },
-  "bio": "I'm Alshan Rijal, a teenager from Nepal who's spent the last 4-5+ years deep in tech, from AI/ML to the MERN stack to cloud systems. I care less about isolated exercises and more about building things people actually use.",
+  "bio": "I’m Alshan Rijal, a Python and MERN stack developer from Itahari, Nepal, with a deep enthusiasm for machine learning. Over the past 4-5 years I’ve worked across the full stack, from building web applications with MongoDB, Express, React, and Node.js to writing Python for data and automation. My main focus now is building AI models and the cloud systems that run them, and I’m continuing to deepen my skills in AWS. I care less about isolated exercises and more about building things people can actually use. Whether it’s an intelligent backend, a clean interface, or a model that solves a real problem, I enjoy taking an idea all the way from concept to something that works.",
   "focusAreas": [
     { "label": "AI/ML", "icon": "cpu" },
     { "label": "Python", "icon": "python" },

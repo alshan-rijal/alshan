@@ -9,7 +9,6 @@ import { useRouteNavigation } from './hooks/useRouteNavigation'
 
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
-
 function AppShell({ page }) {
   const currentPage = useMemo(() => {
     if (page === 'privacy') return <PrivacyPage />
@@ -45,15 +44,16 @@ function RouteMeta({ page }) {
 export default function App() {
   const { location } = useRouteNavigation()
   const page = useMemo(() => {
-    if (location.pathname === '/privacy') return 'privacy'
-    if (location.pathname === '/404') return '404'
-    return 'home'
+    const path = location.pathname.replace(/\/+$/, '') || '/'
+    if (path === '/') return 'home'
+    if (path === '/privacy') return 'privacy'
+    return '404'
   }, [location.pathname])
 
   return (
     <ThemeProvider>
       <RouteMeta page={page} />
-      <Suspense fallback={<div className="loading-shell" /> } >
+      <Suspense fallback={<div className="loading-shell" />}>
         <AppShell page={page} />
       </Suspense>
     </ThemeProvider>
